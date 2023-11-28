@@ -1,5 +1,6 @@
-public class Principal {
-    public static void main(String[] args) {
+public class menuInicial {
+
+    public static void exibirMenuDeCadastro(){
 
         BancoDados bd=new BancoDados();
         Conta c=new Conta();
@@ -8,7 +9,7 @@ public class Principal {
         //menu de login/cadastro
         do{
             EntradaSaida.inserirNomeSite();
-            opcao=EntradaSaida.escolherOpcao("[1] Cadastrar-se\n[2] Fazer login\n[3] Sair");
+            opcao=EntradaSaida.escolherOpcao(" -Selecione uma das opções abaixo\n[1] Cadastrar-se\n[2] Fazer login\n[3] Sair");
             switch (opcao) {
                 case 1:
                     c.nomeUsuario=EntradaSaida.inserirDadosCadastrais("Digite seu nome completo");
@@ -20,7 +21,7 @@ public class Principal {
                     c.senha=EntradaSaida.inserirDadosCadastrais("Digite sua senha");
                     
                     bd.salvarDadosCadastrais(c);
-                    //levar usuário para menu principal
+                    //levar usuário para menu principal - fechar ao cadastrar
                     break;
             
                 case 2:
@@ -28,11 +29,9 @@ public class Principal {
                     break;
 
                 case 3:
-                    EntradaSaida.clearScreen();
-                    System.out.println("Teste");
                     System.exit(0);
                     break;
             }
-        }while(opcao!=3);
+        }while(opcao!=3); //equals 1,2,3
     }
 }
