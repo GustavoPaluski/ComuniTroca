@@ -4,7 +4,7 @@ public class EntradaSaida {
 
     public static void inserirNomeSite(){
         System.out.println("==============================================");
-        System.out.println("                 COMUNITROCA");
+        System.out.println("                 COMUNITROCA                  ");
         System.out.println("==============================================");
     }
 

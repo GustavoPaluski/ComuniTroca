@@ -1,5 +1,5 @@
-public class Principal {
-    public static void main(String[] args) {
+public class MenuLogin {
+    public static void exibirMenuDeCadastro() {
 
         BancoDados bd=new BancoDados();
         Conta c=new Conta();
@@ -33,6 +33,6 @@ public class Principal {
                     System.exit(0);
                     break;
             }
-        }while(opcao!=3);
+        }while(!(opcao==1 || opcao ==2 || opcao==3));
     }
 }
