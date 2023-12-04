@@ -2,23 +2,71 @@ import java.util.ArrayList;
 
 public class Conta {
     
-    public String nomeUsuario;
-    public String dataNascimento;
-    public String cpf;
-    public String pais;
-    public String estado;
-    public String cidade;
-    public String endereco;
-    public String cep;
-    public String email;
-    public String numeroTelefone;
-    public String senha;
+    private String nomeUsuario;
+    private String dataNascimento;
+    private String cpf;
+    private String endereco;
+    private String cep;
+    private String email;
+    private String numeroTelefone;
+    private String senha;
+    private String nomeCompleto;
     ArrayList<Produtos> listaProdutos = new ArrayList<Produtos>();
-
-    // public Conta(String nu, String dataNasc, String cpf, String pais, String estado, String cid, String end, String cep, String email, String numTel, String senha){
-    //     this.nomeUsuario = nu;
-        
-    // }
+    
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+    public String getDataNascimento() {
+        return dataNascimento;
+    }
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+    public String getCpf() {
+        return cpf;
+    }
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    public String getEndereco() {
+        return endereco;
+    }
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+    public String getCep() {
+        return cep;
+    }
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getNumeroTelefone() {
+        return numeroTelefone;
+    }
+    public void setNumeroTelefone(String numeroTelefone) {
+        this.numeroTelefone = numeroTelefone;
+    }
+    public String getSenha() {
+        return senha;
+    }
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
 
     public void armazenarProdutos(Produtos p){
         this.listaProdutos.add(p);

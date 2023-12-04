@@ -27,4 +27,8 @@ public class EntradaSaida {
         System.out.println(msg);
     }
     
+    public static void escreverMensagem(String msg){
+        System.out.println(msg);
+    }
+
 }
