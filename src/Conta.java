@@ -11,6 +11,20 @@ public class Conta {
     private String numeroTelefone;
     private String senha;
     private String nomeCompleto;
+    
+    public Conta(String nomeUsuario, String dataNascimento, String cpf, String endereco, String cep, String email,
+            String numeroTelefone, String senha, String nomeCompleto) {
+        this.nomeUsuario = nomeUsuario;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.cep = cep;
+        this.email = email;
+        this.numeroTelefone = numeroTelefone;
+        this.senha = senha;
+        this.nomeCompleto = nomeCompleto;
+    }
+
     ArrayList<Produtos> listaProdutos = new ArrayList<Produtos>();
     
     public String getNomeUsuario() {

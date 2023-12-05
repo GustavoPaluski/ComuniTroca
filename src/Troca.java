@@ -15,7 +15,7 @@ public class Troca{
     }
 
     public static void criarAnuncio(){
-        Conta c = new Conta();
+        Conta c = new Conta("", "", "", "", "", "","", "", "");
         Produtos p = new Produtos();
         p.nome = EntradaSaida.inserirDadosCadastrais("Digite o modelo");
         p.categoria = EntradaSaida.inserirDadosCadastrais("Digite a categoria");

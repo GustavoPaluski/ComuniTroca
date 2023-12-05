@@ -1,31 +1,39 @@
 public class Principal {
     public static void main(String[] args) {
-        
+
         do{
             BancoDados bd=new BancoDados();
+            Conta c = new Conta("", "", "", "", "", "","", "", "");
             int opcao=0;
             boolean verificarAdmin=false;
 
             //TELA DE CADASTRO/LOGIN:
             do{
+                EntradaSaida.clearScreen();
                 EntradaSaida.inserirNomeSite();
                 opcao = EntradaSaida.escolherOpcao("[1] - Cadastras Usuário\n[2] - Fazer Login\n[3] - Sair");
                 opcao = Validacao.validarEscolhaMenu(1, 3, opcao);
+                bd.admin();
                 switch (opcao){
                     case 1:
-                        bd.cadastrarUsuario(); //validar se a conta já foi cadastrada
+                        EntradaSaida.clearScreen();
+                        bd.cadastrarUsuario();
                         break;
                     
                     case 2:
-                        bd.fazerLogin(); //possibilidade de retomar ao cadastro caso não consiga acessar uma determinada conta ou tentar novamente
-                        //criar usuário e senha de administrador
+                        EntradaSaida.clearScreen();
+                        String nomeEmailCpf=EntradaSaida.inserirDadosCadastrais("Informe seu Nome de Usuário/CPf/E-mail");
+                        String senhaUsuario=EntradaSaida.inserirDadosCadastrais("Digite sua senha");
+                        //fazer login só 3 vezes
                         break;
         
                     case 3:
                         System.exit(0);
                         break;
+                    default:
+                        EntradaSaida.escreverMensagem("Opção inválida!");
                 }
-            }while(opcao==1 || opcao==2);
+            }while(opcao!=1 && opcao!=2);
 
             opcao=0;
             if(verificarAdmin==false){ //MENU PRINCIPAL:

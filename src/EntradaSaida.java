@@ -22,10 +22,7 @@ public class EntradaSaida {
         System.out.println(msg);
         return System.console().readLine();
     }
-    
-    public static void mensagemAviso(String msg){
-        System.out.println(msg);
-    }
+
     
     public static void escreverMensagem(String msg){
         System.out.println(msg);
