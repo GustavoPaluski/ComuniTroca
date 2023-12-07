@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 public class BancoDados {
     
+    //===================Dados Do Usuário===================//
     ArrayList<Conta> contas = new ArrayList<Conta>();
 
-    //ADMIN
-    public void admin(){
+    public void admin(){//ADMIN
         Conta admin = new Conta("", "", "", "", "", "","", "", "");
         
         admin.setEmail("admin");
@@ -57,22 +57,6 @@ public class BancoDados {
         contas.add(c);
     }
 
-    // public void fazerLogin(){
-
-    //     boolean verificar = false;
-    //     do{
-    //         String nomeEmailUsuario = EntradaSaida.inserirDadosCadastrais("Digite o email, nome de usauario ou o CPF");
-    //         verificar = this.validarNomeUsuario(nomeEmailUsuario);
-    //         if(verificar == true){
-    //             String senha = EntradaSaida.inserirDadosCadastrais("Digite a senha: ");
-    //             verificar = this.validarSenhaUsuario(senha);
-    //             if(verificar == true){
-    //                 EntradaSaida.escreverMensagem("Login efeituado");
-    //             }else{EntradaSaida.escreverMensagem("Senha incorreta!");}
-    //         }else{EntradaSaida.clearScreen(); EntradaSaida.escreverMensagem("Email ou nome de usuário incorreto!");}
-    //     }while(verificar == false);
-    // }
-
     public boolean validarNomeUsuario(String dadoUsuario){
         boolean verificador = false;
         for (Conta cTemp : this.contas) {
@@ -82,6 +66,7 @@ public class BancoDados {
     }
     
     public boolean validarSenhaUsuario(String senha){
+
         boolean verificador = false;
         for (Conta cTemp : contas) {
            if(cTemp.getSenha().equals(senha)){
@@ -89,5 +74,20 @@ public class BancoDados {
            }
         }
         return verificador;
+    }
+
+    //====================Dados Doações====================//
+    ArrayList<CentroDistribuicao> doacao=new ArrayList<CentroDistribuicao>();
+
+    public void salvarCampanha(CentroDistribuicao cd){
+        this.doacao.add(cd);
+    }
+
+    public String visualizarCampanhas(){
+        String lista="CAMPANHAS DISPONÍVEIS:\n\n";
+        for (CentroDistribuicao cd:this.doacao) {
+            lista+=cd.getNomeCampanha()+"\nAdministrador: "+cd.getLiderOrganizacao()+"\nCentro de Distribuição: "+cd.getLocalDistribuicao()+"\nDescrição: "+cd.getDescricaoCampanha()+"\n";
+        }
+        return lista;
     }
 }

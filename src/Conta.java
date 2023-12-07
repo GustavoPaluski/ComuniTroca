@@ -24,8 +24,6 @@ public class Conta {
         this.senha = senha;
         this.nomeCompleto = nomeCompleto;
     }
-
-    ArrayList<Produtos> listaProdutos = new ArrayList<Produtos>();
     
     public String getNomeUsuario() {
         return nomeUsuario;
@@ -82,15 +80,48 @@ public class Conta {
         this.nomeCompleto = nomeCompleto;
     }
 
-    public void armazenarProdutos(Produtos p){
+    
+    ArrayList<Produto> listaProdutos = new ArrayList<Produto>(); //verificar
+    ArrayList<ProdutoTroca> listaTroca = new ArrayList<ProdutoTroca>();
+
+    public void armazenarProdutos(Produto p){//verificar
         this.listaProdutos.add(p);
     }
 
-    public String imprimir(){
-        String s="";
-        for (Produtos p : this.listaProdutos) {
-            s += p.nome+p.categoria+p.situacao+p.tempoDeUso;
-        }
-         return s;
+    // public String imprimir(){//verificar
+    //     String s="";
+    //     for (Produto p : this.listaProdutos) {
+    //         s += p.nome+p.categoria+p.situacao+p.tempoDeUso;
+    //     }
+    //      return s;
+    // }
+
+    public void criarAnuncioTroca(){
+        ProdutoTroca pt = new ProdutoTroca();
+        pt.setNome(EntradaSaida.inserirDadosCadastrais("Nome"));
+        pt.setCategoria(EntradaSaida.inserirDadosCadastrais("Categoria"));
+        pt.setDescricao(EntradaSaida.inserirDadosCadastrais("Descrição"));
+        pt.setEstado(EntradaSaida.inserirDadosCadastrais("Estado"));
+        pt.setGarantia(EntradaSaida.inserirDadosCadastrais("Garantia"));
+        pt.setTempoUso(EntradaSaida.inserirDadosCadastrais("Tempo de uso")); 
+        this.listaTroca.add(pt); //NÃO ESTÁ CADASTRANDO (EU ACHO)
     }
+
+    public String visualizarTrocas(){
+        String print = "AAAAA";
+        int i = 0;
+        if(listaTroca.isEmpty()){
+            EntradaSaida.escreverMensagem("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+        }
+        for (ProdutoTroca t : this.listaTroca) { //NÃO ESTÁ ENTRANDO NO FOR
+            i++;
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            print += "Troca "+i+"\n";
+            print += t.getNome()+"\n";
+            print += t.getCategoria()+"\n";
+            print += t.getDescricao()+"\n";
+        }
+        return print;
+    }
+
 }

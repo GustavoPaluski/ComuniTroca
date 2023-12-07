@@ -6,6 +6,7 @@ public class Principal {
             Conta c = new Conta("", "", "", "", "", "","", "", "");
             int opcao=0;
             boolean verificarAdmin=false;
+            Troca t = new Troca();
 
             //TELA DE CADASTRO/LOGIN:
             do{
@@ -17,11 +18,13 @@ public class Principal {
                 switch (opcao){
                     case 1:
                         EntradaSaida.clearScreen();
+                        EntradaSaida.inserirNomeSite();
                         bd.cadastrarUsuario();
                         break;
                     
                     case 2:
                         EntradaSaida.clearScreen();
+                        EntradaSaida.inserirNomeSite();
                         String nomeEmailCpf=EntradaSaida.inserirDadosCadastrais("Informe seu Nome de Usuário/CPf/E-mail");
                         String senhaUsuario=EntradaSaida.inserirDadosCadastrais("Digite sua senha");
                         //fazer login só 3 vezes
@@ -30,8 +33,6 @@ public class Principal {
                     case 3:
                         System.exit(0);
                         break;
-                    default:
-                        EntradaSaida.escreverMensagem("Opção inválida!");
                 }
             }while(opcao!=1 && opcao!=2);
 
@@ -43,9 +44,23 @@ public class Principal {
                     opcao = Validacao.validarEscolhaMenu(1, 7, opcao);
                     switch (opcao){
                         case 1:
+                            Doacao.visualizarMenuDoacao();
                             break;
                         
                         case 2:
+                            EntradaSaida.inserirNomeSite();
+                            int menu = EntradaSaida.escolherOpcao("[0] - Sair\n[1] - Inserir produto\n[2] - Excluir produto\n[3] - Visualizar produto");
+                            Conta cTeste = new Conta("", "", "", "", "", "", "", "", "");
+                            String visualizacaoTroca = ""; 
+
+                            if(menu == 1){
+                                cTeste.criarAnuncioTroca();
+                            }
+                            if(menu == 2){
+                                EntradaSaida.escreverMensagem(cTeste.visualizarTrocas());
+                            }else{
+                                EntradaSaida.escreverMensagem("Opção inválida");
+                            }
                             break;
             
                         case 3:
