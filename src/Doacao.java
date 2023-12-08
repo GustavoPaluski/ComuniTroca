@@ -42,6 +42,10 @@ public class Doacao {
                     break;
 
                 case 4:
+                    EntradaSaida.clearScreen();
+                    EntradaSaida.inserirNomeSite();
+
+                    // String nomeCampanha(EntradaSaida.inserirDadosCadastrais("Digite o nome da campanha:"));    pesquisar nome, senha e cpf para  acessar dados
                     break;
 
                 case 5:
