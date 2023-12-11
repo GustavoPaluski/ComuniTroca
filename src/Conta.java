@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import java.lang.Math;
+
 public class Conta {
     
     private String nomeUsuario;
@@ -88,40 +90,55 @@ public class Conta {
         this.listaProdutos.add(p);
     }
 
-    // public String imprimir(){//verificar
-    //     String s="";
-    //     for (Produto p : this.listaProdutos) {
-    //         s += p.nome+p.categoria+p.situacao+p.tempoDeUso;
-    //     }
-    //      return s;
-    // }
-
     public void criarAnuncioTroca(){
         ProdutoTroca pt = new ProdutoTroca();
+        double random = 0;
+        int randomInt = 0;
+        do{
+            random = Math.random() * 50; 
+            randomInt = (int)random; 
+        }while(Validacao.verificarExistenciaId(randomInt, listaTroca));
+        pt.setId(randomInt);
         pt.setNome(EntradaSaida.inserirDadosCadastrais("Nome"));
         pt.setCategoria(EntradaSaida.inserirDadosCadastrais("Categoria"));
         pt.setDescricao(EntradaSaida.inserirDadosCadastrais("Descrição"));
         pt.setEstado(EntradaSaida.inserirDadosCadastrais("Estado"));
         pt.setGarantia(EntradaSaida.inserirDadosCadastrais("Garantia"));
-        pt.setTempoUso(EntradaSaida.inserirDadosCadastrais("Tempo de uso")); 
-        this.listaTroca.add(pt); //NÃO ESTÁ CADASTRANDO (EU ACHO)
+        pt.setTempoUso(EntradaSaida.inserirDadosCadastrais("Tempo de uso"));
+        this.listaTroca.add(pt); 
+        EntradaSaida.escreverMensagem("Anuncio criado");
     }
 
     public String visualizarTrocas(){
-        String print = "AAAAA";
+        String retorno = "";
         int i = 0;
         if(listaTroca.isEmpty()){
-            EntradaSaida.escreverMensagem("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+            retorno +="Nenhuma troca no momento";
+        }else{
+            for (ProdutoTroca t : this.listaTroca) {
+                i++;
+                retorno += "Troca "+i+"\n";
+                retorno += "Id: "+t.getId()+"\n";
+                retorno += "Nome: "+t.getNome()+"\n";
+                retorno += "Categoria: "+t.getCategoria()+"\n";
+                retorno += "Descrição: "+t.getDescricao()+"\n";
+                retorno += "Estado: "+t.getEstado()+"\n";
+                retorno += "Garantia: "+t.getGarantia()+"\n";
+                retorno += "Tempo de uso: "+t.getTempoUso()+"\n\n";
+            }
         }
-        for (ProdutoTroca t : this.listaTroca) { //NÃO ESTÁ ENTRANDO NO FOR
-            i++;
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            print += "Troca "+i+"\n";
-            print += t.getNome()+"\n";
-            print += t.getCategoria()+"\n";
-            print += t.getDescricao()+"\n";
-        }
-        return print;
-    }
+        return retorno;
+    } 
 
+    public void excluirTroca(){
+        int id = EntradaSaida.inserirInt("Digite o id da troca");
+        int posicao = 0;
+        for (ProdutoTroca pt : listaTroca) {
+            if(pt.getId() == id){
+                posicao = listaTroca.indexOf(pt);
+            }
+        }
+        listaTroca.remove(posicao);
+        EntradaSaida.escreverMensagem("Excluido com sucesso!");
+    }
 }

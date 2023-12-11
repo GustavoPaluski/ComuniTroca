@@ -2,3 +2,4 @@
 
 - submenus separados em classes
 - mensagem de opção inválida após cadastrar troca
+- mudar os nomes para listaNomes etc.

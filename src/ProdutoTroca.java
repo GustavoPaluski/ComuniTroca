@@ -1,5 +1,6 @@
 public class ProdutoTroca extends Produto {
     
+    private int id;
     private String tempoUso;
     private String estado;
     private String garantia;
@@ -28,5 +29,11 @@ public class ProdutoTroca extends Produto {
     }
     public void setDono(Conta dono) {
         this.dono = dono;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 }

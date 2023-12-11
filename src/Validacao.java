@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Validacao {
     
     BancoDados bd = new BancoDados();
@@ -30,5 +32,23 @@ public class Validacao {
             EntradaSaida.escreverMensagem("Senha incorreta!");
         }
         return verificar;
+    }
+
+    public static boolean verificarAdmin(String nomeEmailCpf, String senhaUsuario){
+        boolean verificar=false;
+        if(nomeEmailCpf.equals("admin") && senhaUsuario.equals("admin")) verificar=true;
+        return verificar;
+
+    }
+
+
+    public static boolean verificarExistenciaId(int id, ArrayList<ProdutoTroca> listaProdutos){
+        boolean verificador = false;
+        for(ProdutoTroca pt : listaProdutos){  
+            if(pt.getId() == id){
+                verificador = true;
+            }
+        }
+        return verificador;
     }
 }

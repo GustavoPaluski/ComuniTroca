@@ -90,4 +90,17 @@ public class BancoDados {
         }
         return lista;
     }
+
+    public String visualizarCampanhaDoUsuario(String nomeCampanha, String nomeLiderCampanha, String cpfLiderCampanha, String senhaLiderCampanha){
+        String retorno="";
+        for (CentroDistribuicao cd: this.doacao) {
+            if(nomeCampanha.equals(cd.getNomeCampanha())||nomeLiderCampanha.equals(cd.getLiderOrganizacao())||cpfLiderCampanha.equals(cd.getCpfLider())||senhaLiderCampanha.equals(cd.getSenha())){
+                retorno="Nome da Campanha: "+cd.getNomeCampanha()+"\nAdministrador: "+cd.getLiderOrganizacao()+"\nCPF Administrador: "+cd.getCpfLider()+"\nCentro de Distribuição: "+cd.getLocalDistribuicao()
+                +"\nSenha: "+cd.getSenha()+"\nDescrição: "+cd.getLocalDistribuicao();
+            }
+        }
+        return retorno;
+    }
+
+    
 }

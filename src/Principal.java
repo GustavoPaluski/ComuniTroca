@@ -28,6 +28,7 @@ public class Principal {
                         String nomeEmailCpf=EntradaSaida.inserirDadosCadastrais("Informe seu Nome de Usuário/CPf/E-mail");
                         String senhaUsuario=EntradaSaida.inserirDadosCadastrais("Digite sua senha");
                         //fazer login só 3 vezes
+                        verificarAdmin=Validacao.verificarAdmin(nomeEmailCpf, senhaUsuario);
                         break;
         
                     case 3:
@@ -48,19 +49,7 @@ public class Principal {
                             break;
                         
                         case 2:
-                            EntradaSaida.inserirNomeSite();
-                            int menu = EntradaSaida.escolherOpcao("[0] - Sair\n[1] - Inserir produto\n[2] - Excluir produto\n[3] - Visualizar produto");
-                            Conta cTeste = new Conta("", "", "", "", "", "", "", "", "");
-                            String visualizacaoTroca = ""; 
-
-                            if(menu == 1){
-                                cTeste.criarAnuncioTroca();
-                            }
-                            if(menu == 2){
-                                EntradaSaida.escreverMensagem(cTeste.visualizarTrocas());
-                            }else{
-                                EntradaSaida.escreverMensagem("Opção inválida");
-                            }
+                            Troca.visualizarMenuTroca();
                             break;
             
                         case 3:

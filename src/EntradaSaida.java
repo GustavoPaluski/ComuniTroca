@@ -22,10 +22,19 @@ public class EntradaSaida {
         System.out.println(msg);
         return System.console().readLine();
     }
-
     
     public static void escreverMensagem(String msg){
         System.out.println(msg);
+    }
+
+    public static String responderPerguntaSimNao(String msg){
+        System.out.println(msg+" Digite SIM ou NÃO.");
+        return System.console().readLine();
+    } 
+
+    public static int inserirInt(String txt){
+        System.out.println(txt);
+        return Integer.parseInt(System.console().readLine());
     }
 
 }

@@ -1,35 +1,30 @@
-import java.util.ArrayList;
-
 public class Troca{
 
-    //Cadastrar troca(Dar lance)
-    //Visualizar troca
-    //Sair
+    public static void visualizarMenuTroca(){
 
-    private Produto produto;
+        EntradaSaida.clearScreen();
+        EntradaSaida.inserirNomeSite();
+        Conta c = new Conta("", "", "", "", "", "", "", "", "");
+        int escolhaMenu=0;
 
-    public Produto getProduto() {
-        return produto;
+        do{
+            escolhaMenu = EntradaSaida.escolherOpcao("[1] - Criar anúncio\n[2] - Visualizar Trocas\n[3] - Excluir Troca\n[0] - Sair\n");
+            escolhaMenu=Validacao.validarEscolhaMenu(1, 4, escolhaMenu); 
+
+            switch(escolhaMenu){
+                case 1:
+                    c.criarAnuncioTroca();
+                    break;
+
+                case 2:
+                    EntradaSaida.escreverMensagem(c.visualizarTrocas());
+                    break;
+                case 3:
+                    c.excluirTroca();
+                    break;
+                
+                case 4:
+            }
+        }while(escolhaMenu!=4);
     }
-    public Produto setProduto(Produto p) {
-        return this.produto = p;
-    }
-
-    // public void menuTroca(){
-    //     EntradaSaida.inserirNomeSite();
-    //     int menu = EntradaSaida.escolherOpcao("[0] - Sair\n[1] - Inserir produto\n[2] - Excluir produto\n[3] - Visualizar produto");
-    //     Conta c = new Conta("", "", "", "", "", "", "", "", "");
-
-    //     switch (menu) {
-    //         case 1:
-    //             c.criarAnuncioTroca();
-    //             break;
-        
-    //         case 2:
-    //             c.visualizarTrocas();
-            
-    //         default:
-    //             break;
-    //     }
-    // }
 }            
