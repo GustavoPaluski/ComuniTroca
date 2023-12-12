@@ -22,8 +22,9 @@ public class Troca{
                 case 3:
                     c.excluirTroca();
                     break;
-                
-                case 4:
+                default:
+                    EntradaSaida.escreverMensagem("Opção inválida");
+                case 0:
             }
         }while(escolhaMenu!=4);
     }

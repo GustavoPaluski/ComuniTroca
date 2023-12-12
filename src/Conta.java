@@ -85,6 +85,7 @@ public class Conta {
     
     ArrayList<Produto> listaProdutos = new ArrayList<Produto>(); //verificar
     ArrayList<ProdutoTroca> listaTroca = new ArrayList<ProdutoTroca>();
+    BancoDados bd = new BancoDados();
 
     public void armazenarProdutos(Produto p){//verificar
         this.listaProdutos.add(p);
@@ -140,5 +141,19 @@ public class Conta {
         }
         listaTroca.remove(posicao);
         EntradaSaida.escreverMensagem("Excluido com sucesso!");
+    }
+
+    public void removerUsuarioAdmin(String nomeUsuario){
+        for (ProdutoTroca pt : listaTroca) {
+            if(pt.getDono().getNomeUsuario().equals(nomeUsuario)){
+                listaTroca.remove(pt);
+            }
+        }
+
+        for (Conta c : bd.contas) {
+            if(c.nomeUsuario.equals(nomeUsuario)){
+                bd.contas.remove(c); //TALVEZ DE ERRO
+            }else{EntradaSaida.escreverMensagem("Nenhum usúario encontrado");}
+        }
     }
 }

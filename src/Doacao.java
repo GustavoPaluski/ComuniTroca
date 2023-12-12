@@ -27,11 +27,15 @@ public class Doacao {
                             //validar campanha existente
 
                             ProdutoDoacao pD=new ProdutoDoacao();
-                            pD.setNome(EntradaSaida.inserirDadosCadastrais("Insira o nome do produto que será doado:"));  //finalizar
+                            pD.setNome(EntradaSaida.inserirDadosCadastrais("Insira o nome do produto que será doado:"));  
+                            pD.setCategoria(EntradaSaida.inserirDadosCadastrais("Informe a categoria do produto: (Vestimentas, Alimentos, Móveis)"));
+                            //validar categoria, ou selecionar uma opção.  pedir categoria para o centro de distribuição tambem, assim o produto fica voltado a uma campanha
+                            pD.setDescricao(EntradaSaida.inserirDadosCadastrais("Descreva o estado do produto e sua quantidade:"));
+                            //verificar se a descrição será assim e add o objeto no arraylist
                         }
                     }
                     break;
-                    //verificar se existe um timer para passar de uma para outra
+                    //verificar se existe um timer para passar de uma campanha para outra
                     // fazer doação
                 case 2:
                     EntradaSaida.clearScreen();

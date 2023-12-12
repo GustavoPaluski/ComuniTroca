@@ -27,7 +27,8 @@ public class BancoDados {
         return verificar;
     }
 
-    public void cadastrarUsuario(){
+    public String cadastrarUsuario(){
+        String usuarioAtual="";
         Conta c = new Conta("", "", "", "", "", "","", "", "");
 
         c.setNomeCompleto(EntradaSaida.inserirDadosCadastrais("Nome completo"));
@@ -50,17 +51,26 @@ public class BancoDados {
             validacao=validarNomeUsuario(c.getNomeUsuario());
             Validacao.validarDadosUsuario(validacao, "Usuário já existente.");
         }while(validacao==true);
+        usuarioAtual=c.getNomeUsuario();
 
         c.setEndereco(EntradaSaida.inserirDadosCadastrais("Endereço"));
         c.setCep(EntradaSaida.inserirDadosCadastrais("CEP"));
         c.setNumeroTelefone(EntradaSaida.inserirDadosCadastrais("Telefone"));
+        c.setSenha(EntradaSaida.inserirDadosCadastrais("Senha"));
         contas.add(c);
+
+        return usuarioAtual;
     }
 
-    public boolean validarNomeUsuario(String dadoUsuario){
+    public boolean validarNomeUsuario(String dadoUsuario){ //TA DANDO ERRO(Só ta retornando Falso) entra no if apenas quando opcao esta correta- talvez não esteja cadastrando usuario
         boolean verificador = false;
         for (Conta cTemp : this.contas) {
-           if(cTemp.getNomeUsuario().equals(dadoUsuario) || (cTemp.getEmail().equals(dadoUsuario)) || (cTemp.getCpf().equals(dadoUsuario))){verificador = true;}
+            EntradaSaida.escreverMensagem(cTemp.getNomeUsuario());
+           if(cTemp.getNomeUsuario().equals(dadoUsuario) || (cTemp.getEmail().equals(dadoUsuario)) || (cTemp.getCpf().equals(dadoUsuario))){
+                EntradaSaida.escreverMensagem("BATATA QUENTE");
+                verificador = true;
+            } 
+           break;
         }
         return verificador;
     }
@@ -71,9 +81,37 @@ public class BancoDados {
         for (Conta cTemp : contas) {
            if(cTemp.getSenha().equals(senha)){
                 verificador = true;
+                break;
            }
         }
         return verificador;
+    }
+
+    public String visualizarPerfilUsusario(String usuarioAtual){
+        String retorno="";
+        String testeTela="";//temporário
+        for (Conta c: this.contas) {
+            if(c.getNomeUsuario().equals(usuarioAtual) || (c.getEmail().equals(usuarioAtual)) || (c.getCpf().equals(usuarioAtual))){
+                retorno+="Nome de Usuário: "+c.getNomeUsuario()+"\nNome Completo: "+c.getNomeCompleto()+"\nCPF: "+c.getDataNascimento()+"\nData de Nascimento: "+c.getDataNascimento()+
+                "\nCEP: "+c.getCep()+"\nEndereço: "+c.getEndereco()+"\nE-mail: "+c.getEmail()+"\nTelefone: "+c.getNumeroTelefone();
+
+                testeTela=  " ____________________________________________________________________________\n"+
+                            "|                                                [1] EDITAR DADOS CADASTRAIS |\n"+
+                            "|                                                [2] VOLTAR AO MENU          |\n"+
+                            "|----------------------------------------------------------------------------|\n"+
+                            "|                               PERFIL DO USUÁRIO                            |\n"+
+                            "| Nome de Usuário:                                                           |\n"+
+                            "| Nome Completo:                                                             |\n"+
+                            "| CPF:                                    Data de Nascimento:                |\n"+
+                            "| CEP:                                                                       |\n"+
+                            "| Endereço:                                                                  |\n"+
+                            "| E-mail:                                                                    |\n"+
+                            "| Telefone:                                                                  |\n"+
+                            "|____________________________________________________________________________|\n"+
+                            "|SELECIONE UMA DAS OPÇÕES: "; //fazer o preenchimento com dos atributos de modo que não alterem o desenho.
+            }
+        }
+        return retorno;
     }
 
     //====================Dados Doações====================//

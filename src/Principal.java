@@ -1,12 +1,14 @@
+import java.awt.Robot;
+
 public class Principal {
     public static void main(String[] args) {
 
         do{
             BancoDados bd=new BancoDados();
-            Conta c = new Conta("", "", "", "", "", "","", "", "");
+            Conta c = new Conta("", "", "", "", "", "", "", "", "");
             int opcao=0;
             boolean verificarAdmin=false;
-            Troca t = new Troca();
+            String usuarioAtual="";
 
             //TELA DE CADASTRO/LOGIN:
             do{
@@ -19,16 +21,30 @@ public class Principal {
                     case 1:
                         EntradaSaida.clearScreen();
                         EntradaSaida.inserirNomeSite();
-                        bd.cadastrarUsuario();
+                        usuarioAtual=bd.cadastrarUsuario();
                         break;
                     
                     case 2:
                         EntradaSaida.clearScreen();
                         EntradaSaida.inserirNomeSite();
-                        String nomeEmailCpf=EntradaSaida.inserirDadosCadastrais("Informe seu Nome de Usuário/CPf/E-mail");
-                        String senhaUsuario=EntradaSaida.inserirDadosCadastrais("Digite sua senha");
-                        //fazer login só 3 vezes
-                        verificarAdmin=Validacao.verificarAdmin(nomeEmailCpf, senhaUsuario);
+
+                        boolean verificaDadosUsuario=false;
+                        String nomeEmailCpf="";
+                        String senhaUsuario="";
+
+                        do{
+                            nomeEmailCpf=EntradaSaida.inserirDadosCadastrais("Informe seu Nome de Usuário/CPf/E-mail");
+                            verificaDadosUsuario=bd.validarNomeUsuario(nomeEmailCpf);
+                        }while(verificaDadosUsuario==false);
+
+                        do{
+                            senhaUsuario=EntradaSaida.inserirDadosCadastrais("Digite sua senha"); //senha deve ser validada junto com o usuario - está aceitando vazio para entrar
+                            verificaDadosUsuario=bd.validarNomeUsuario(senhaUsuario);
+                        }while(verificaDadosUsuario==false);
+                            //fazer login só 3 vezes 
+                        verificarAdmin=Validacao.verificarAdmin(nomeEmailCpf, senhaUsuario); 
+                        //depois de validado usuário salvar a informação inserida para puxar todos os dados no perfil
+                        usuarioAtual=nomeEmailCpf;
                         break;
         
                     case 3:
@@ -52,13 +68,14 @@ public class Principal {
                             Troca.visualizarMenuTroca();
                             break;
             
-                        case 3:
+                        case 3: //deixar de lado por enquanto (vetor de string)
                             break;
             
-                        case 4:
+                        case 4: //grupos talvez fique de lado pois não existe chat para interação
                             break;
             
-                        case 5:
+                        case 5: //possibilidade de alterar alguns dados
+                            EntradaSaida.inserirDadosCadastrais(bd.visualizarPerfilUsusario(usuarioAtual));
                             break;
 
                         case 6:
@@ -72,13 +89,15 @@ public class Principal {
             }else{ //MENU PRINCIPAL ADMINISTRADOR:
                 do{
                     EntradaSaida.inserirNomeSite();
-                    opcao = EntradaSaida.escolherOpcao("[1] - Remover Usuário\n[2] - Remover Publicação\n[3] - Deslogar-se\n[4] - Sair");
+                    opcao = EntradaSaida.escolherOpcao("[1] - Remover Usuário\n[2] - Remover Publicação\n[3] - Deslogar-se\n[4] - Sair"); //possibilidade de modificar as notícias
                     opcao = Validacao.validarEscolhaMenu(1, 4, opcao);
                     switch(opcao){
-                        case 1:
+                        case 1: //remover ususarios e suas publicacoes 
+                            String nomeUsur = EntradaSaida.inserirDadosCadastrais("Digite o nome de usuário que deseja excluir");
+                            c.removerUsuarioAdmin(nomeUsur);
                             break;
 
-                        case 2:
+                        case 2: //remover publicacoes2
                             break;
 
                         case 3:

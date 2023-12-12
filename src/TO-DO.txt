@@ -1,5 +1,16 @@
 //Escrever para o que fazer amanhã
 
-- submenus separados em classes
-- mensagem de opção inválida após cadastrar troca
+NÃO ESTÁ CADASTRANDO O USUÁRIO (Nome de usuário, cpf e email)
+
 - mudar os nomes para listaNomes etc.
+
+Fazer admin
+
+Printar na tela as informações da pessoa
+
+e-mail - toLowerCase
+
+fazer subclasses para os dados cadastrais
+
+tirar variaveis do infinitivo
+

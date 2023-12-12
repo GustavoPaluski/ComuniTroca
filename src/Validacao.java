@@ -18,7 +18,7 @@ public class Validacao {
         }
     }
 
-    public boolean verificarDadoUsuario(String dadoUsuario){
+    public boolean verificarDadoUsuario(String dadoUsuario){ //verificar se precisa linkar no principal
         boolean verificar = bd.validarNomeUsuario(dadoUsuario);
         if(verificar == false){
             EntradaSaida.escreverMensagem("Dados inválidos!");
@@ -26,7 +26,7 @@ public class Validacao {
         return verificar;
     }
 
-    public boolean verificarSenhaUsuario(String senha){
+    public boolean verificarSenhaUsuario(String senha){ //verificar se precisa linkar no principal
         boolean verificar = bd.validarSenhaUsuario(senha);
         if(verificar == true){
             EntradaSaida.escreverMensagem("Senha incorreta!");
