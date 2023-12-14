@@ -1,11 +1,10 @@
-import java.awt.Robot;
-
 public class Principal {
     public static void main(String[] args) {
 
+        BancoDados bd=new BancoDados();
+        Conta c = new Conta("", "", "", "", "", "", "", "", "");
+        bd.admin();
         do{
-            BancoDados bd=new BancoDados();
-            Conta c = new Conta("", "", "", "", "", "", "", "", "");
             int opcao=0;
             boolean verificarAdmin=false;
             String usuarioAtual="";
@@ -14,14 +13,13 @@ public class Principal {
             do{
                 EntradaSaida.clearScreen();
                 EntradaSaida.inserirNomeSite();
-                opcao = EntradaSaida.escolherOpcao("[1] - Cadastras Usuário\n[2] - Fazer Login\n[3] - Sair");
+                opcao = EntradaSaida.escolherOpcao("[1] - Cadastrar Usuário\n[2] - Fazer Login\n[3] - Sair");
                 opcao = Validacao.validarEscolhaMenu(1, 3, opcao);
-                bd.admin();
                 switch (opcao){
                     case 1:
                         EntradaSaida.clearScreen();
                         EntradaSaida.inserirNomeSite();
-                        usuarioAtual=bd.cadastrarUsuario();
+                        bd.cadastrarUsuario();
                         break;
                     
                     case 2:
@@ -39,7 +37,7 @@ public class Principal {
 
                         do{
                             senhaUsuario=EntradaSaida.inserirDadosCadastrais("Digite sua senha"); //senha deve ser validada junto com o usuario - está aceitando vazio para entrar
-                            verificaDadosUsuario=bd.validarNomeUsuario(senhaUsuario);
+                            verificaDadosUsuario=bd.validarSenhaUsuario(senhaUsuario,nomeEmailCpf);
                         }while(verificaDadosUsuario==false);
                             //fazer login só 3 vezes 
                         verificarAdmin=Validacao.verificarAdmin(nomeEmailCpf, senhaUsuario); 
@@ -93,11 +91,14 @@ public class Principal {
                     opcao = Validacao.validarEscolhaMenu(1, 4, opcao);
                     switch(opcao){
                         case 1: //remover ususarios e suas publicacoes 
-                            String nomeUsur = EntradaSaida.inserirDadosCadastrais("Digite o nome de usuário que deseja excluir");
-                            c.removerUsuarioAdmin(nomeUsur);
+                            int tamanho = bd.contas.size();
+                            EntradaSaida.escreverMensagem("TAMANHO DA LISTA DE CONTAS: "+tamanho);
+                            String nomeUsuario = EntradaSaida.inserirDadosCadastrais("Digite o nome de usuário que deseja excluir");
+                            c.removerUsuarioAdmin(nomeUsuario,bd);
                             break;
 
                         case 2: //remover publicacoes2
+                            EntradaSaida.escreverMensagem(bd.retornarArraylist()); // visualizacao de array temporária
                             break;
 
                         case 3:

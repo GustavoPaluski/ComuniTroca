@@ -82,14 +82,7 @@ public class Conta {
         this.nomeCompleto = nomeCompleto;
     }
 
-    
-    ArrayList<Produto> listaProdutos = new ArrayList<Produto>(); //verificar
     ArrayList<ProdutoTroca> listaTroca = new ArrayList<ProdutoTroca>();
-    BancoDados bd = new BancoDados();
-
-    public void armazenarProdutos(Produto p){//verificar
-        this.listaProdutos.add(p);
-    }
 
     public void criarAnuncioTroca(){
         ProdutoTroca pt = new ProdutoTroca();
@@ -143,17 +136,30 @@ public class Conta {
         EntradaSaida.escreverMensagem("Excluido com sucesso!");
     }
 
-    public void removerUsuarioAdmin(String nomeUsuario){
-        for (ProdutoTroca pt : listaTroca) {
+    public void removerUsuarioAdmin(String nomeUsuario,BancoDados bd){
+        boolean validacao = false;
+        int posicao = 0;
+
+        for (ProdutoTroca pt : this.listaTroca) { //verificar se está funcional 
             if(pt.getDono().getNomeUsuario().equals(nomeUsuario)){
-                listaTroca.remove(pt);
+                validacao = true;
+                posicao=listaTroca.indexOf(pt);
             }
         }
-
-        for (Conta c : bd.contas) {
-            if(c.nomeUsuario.equals(nomeUsuario)){
-                bd.contas.remove(c); //TALVEZ DE ERRO
-            }else{EntradaSaida.escreverMensagem("Nenhum usúario encontrado");}
+        if(validacao){
+            listaTroca.remove(posicao);
         }
+
+        posicao=0;
+        validacao = false;   
+        for (Conta c : bd.contas) { 
+            if(c.getNomeUsuario().equals(nomeUsuario)){
+                validacao=true;
+                posicao=bd.contas.indexOf(c);
+            }
+        }
+        if(validacao){
+            bd.contas.remove(posicao);
+        }else{EntradaSaida.escreverMensagem("Nenhum usúario encontrado");}
     }
 }

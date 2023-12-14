@@ -6,11 +6,12 @@ public class BancoDados {
     ArrayList<Conta> contas = new ArrayList<Conta>();
 
     public void admin(){//ADMIN
-        Conta admin = new Conta("", "", "", "", "", "","", "", "");
+        Conta conta = new Conta("", "", "", "", "", "","", "", "");
         
-        admin.setEmail("admin");
-        admin.setSenha("admin");
-        salvarDadosCadastrais(admin);
+        conta.setEmail("admin");
+        conta.setSenha("admin");
+        
+        contas.add(conta);
     }
     
 	public void salvarDadosCadastrais(Conta c){
@@ -27,62 +28,71 @@ public class BancoDados {
         return verificar;
     }
 
-    public String cadastrarUsuario(){
+    public String cadastrarUsuario(){ 
         String usuarioAtual="";
-        Conta c = new Conta("", "", "", "", "", "","", "", "");
+        Conta conta = new Conta("", "", "", "", "", "", "", "", "");
 
-        c.setNomeCompleto(EntradaSaida.inserirDadosCadastrais("Nome completo"));
+        conta.setNomeCompleto(EntradaSaida.inserirDadosCadastrais("Nome completo"));
         
         boolean validacao=false;
         do{
-            c.setCpf(EntradaSaida.inserirDadosCadastrais("CPF"));
-            validacao=validarNomeUsuario(c.getCpf());
+            conta.setCpf(EntradaSaida.inserirDadosCadastrais("CPF"));
+            validacao=validarNomeUsuario(conta.getCpf());
             Validacao.validarDadosUsuario(validacao, "CPF já cadastrado.");
         }while(validacao==true);
         
         do{
-            c.setEmail(EntradaSaida.inserirDadosCadastrais("E-mail"));
-            validacao=validarNomeUsuario(c.getEmail());
+            conta.setEmail(EntradaSaida.inserirDadosCadastrais("E-mail"));
+            validacao=validarNomeUsuario(conta.getEmail());
             Validacao.validarDadosUsuario(validacao, "E-mail já cadastrado.");
         }while(validacao==true);
 
         do{
-            c.setNomeUsuario(EntradaSaida.inserirDadosCadastrais("Digite o nome de usuário"));
-            validacao=validarNomeUsuario(c.getNomeUsuario());
+            conta.setNomeUsuario(EntradaSaida.inserirDadosCadastrais("Digite o nome de usuário"));
+            validacao=validarNomeUsuario(conta.getNomeUsuario());
             Validacao.validarDadosUsuario(validacao, "Usuário já existente.");
         }while(validacao==true);
-        usuarioAtual=c.getNomeUsuario();
+        usuarioAtual=conta.getNomeUsuario();
 
-        c.setEndereco(EntradaSaida.inserirDadosCadastrais("Endereço"));
-        c.setCep(EntradaSaida.inserirDadosCadastrais("CEP"));
-        c.setNumeroTelefone(EntradaSaida.inserirDadosCadastrais("Telefone"));
-        c.setSenha(EntradaSaida.inserirDadosCadastrais("Senha"));
-        contas.add(c);
+        conta.setDataNascimento(EntradaSaida.inserirDadosCadastrais("data de nascimento"));
+        conta.setEndereco(EntradaSaida.inserirDadosCadastrais("Endereço"));
+        conta.setCep(EntradaSaida.inserirDadosCadastrais("CEP"));
+        conta.setNumeroTelefone(EntradaSaida.inserirDadosCadastrais("Telefone"));
+        conta.setSenha(EntradaSaida.inserirDadosCadastrais("Senha"));
+        salvarDadosCadastrais(conta);
 
         return usuarioAtual;
     }
 
-    public boolean validarNomeUsuario(String dadoUsuario){ //TA DANDO ERRO(Só ta retornando Falso) entra no if apenas quando opcao esta correta- talvez não esteja cadastrando usuario
+    public String retornarArraylist(){ //ver se precisa
+        String retorno="";
+        for (Conta c: this.contas) {
+                retorno+="Nome de Usuário: "+c.getNomeUsuario()+"\nNome Completo: "+c.getNomeCompleto()+"\nCPF: "+c.getCpf()+"\nData de Nascimento: "+c.getDataNascimento()+
+                "\nCEP: "+c.getCep()+"\nEndereço: "+c.getEndereco()+"\nE-mail: "+c.getEmail()+"\nTelefone: "+c.getNumeroTelefone()+"\n\n";
+        }
+        return retorno;
+    }
+
+    public boolean validarNomeUsuario(String dadoUsuario){  //troca nome - validarDadosCadastrais
         boolean verificador = false;
         for (Conta cTemp : this.contas) {
-            EntradaSaida.escreverMensagem(cTemp.getNomeUsuario());
            if(cTemp.getNomeUsuario().equals(dadoUsuario) || (cTemp.getEmail().equals(dadoUsuario)) || (cTemp.getCpf().equals(dadoUsuario))){
-                EntradaSaida.escreverMensagem("BATATA QUENTE");
                 verificador = true;
             } 
-           break;
         }
         return verificador;
     }
     
-    public boolean validarSenhaUsuario(String senha){
+    public boolean validarSenhaUsuario(String senha, String nomeEmailCpf){
 
         boolean verificador = false;
         for (Conta cTemp : contas) {
-           if(cTemp.getSenha().equals(senha)){
-                verificador = true;
-                break;
-           }
+            if(cTemp.getNomeUsuario().equals(nomeEmailCpf) || (cTemp.getEmail().equals(nomeEmailCpf)) || (cTemp.getCpf().equals(nomeEmailCpf))){
+                if(cTemp.getSenha().equals(senha)){
+                    verificador = true;
+                    break;
+                }
+            }
         }
         return verificador;
     }
@@ -92,8 +102,8 @@ public class BancoDados {
         String testeTela="";//temporário
         for (Conta c: this.contas) {
             if(c.getNomeUsuario().equals(usuarioAtual) || (c.getEmail().equals(usuarioAtual)) || (c.getCpf().equals(usuarioAtual))){
-                retorno+="Nome de Usuário: "+c.getNomeUsuario()+"\nNome Completo: "+c.getNomeCompleto()+"\nCPF: "+c.getDataNascimento()+"\nData de Nascimento: "+c.getDataNascimento()+
-                "\nCEP: "+c.getCep()+"\nEndereço: "+c.getEndereco()+"\nE-mail: "+c.getEmail()+"\nTelefone: "+c.getNumeroTelefone();
+                retorno+="Nome de Usuário: "+c.getNomeUsuario()+"\nNome Completo: "+c.getNomeCompleto()+"\nCPF: "+c.getCpf()+"\nData de Nascimento: "+c.getDataNascimento()+
+                "\nCEP: "+c.getCep()+"\nEndereço: "+c.getEndereco()+"\nE-mail: "+c.getEmail()+"\nTelefone: "+c.getNumeroTelefone()+"\n\n";
 
                 testeTela=  " ____________________________________________________________________________\n"+
                             "|                                                [1] EDITAR DADOS CADASTRAIS |\n"+

@@ -5,7 +5,7 @@ public class Validacao {
     BancoDados bd = new BancoDados();
 
     public static int validarEscolhaMenu(int valorMinimo, int valorMaximo, int opcao){
-        while(opcao<valorMinimo || opcao>valorMaximo){
+        while(opcao<valorMinimo && opcao>valorMaximo){
             EntradaSaida.escreverMensagem("Opção inválida, selecione outra.");
             opcao=Integer.parseInt(System.console().readLine());
         }
@@ -18,7 +18,7 @@ public class Validacao {
         }
     }
 
-    public boolean verificarDadoUsuario(String dadoUsuario){ //verificar se precisa linkar no principal
+    public boolean verificarDadoUsuario(String dadoUsuario){ 
         boolean verificar = bd.validarNomeUsuario(dadoUsuario);
         if(verificar == false){
             EntradaSaida.escreverMensagem("Dados inválidos!");
@@ -26,8 +26,8 @@ public class Validacao {
         return verificar;
     }
 
-    public boolean verificarSenhaUsuario(String senha){ //verificar se precisa linkar no principal
-        boolean verificar = bd.validarSenhaUsuario(senha);
+    public boolean verificarSenhaUsuario(String senha, String nomeEmailCpf){ 
+        boolean verificar = bd.validarSenhaUsuario(senha,nomeEmailCpf);
         if(verificar == true){
             EntradaSaida.escreverMensagem("Senha incorreta!");
         }
