@@ -127,13 +127,17 @@ public class Conta {
     public void excluirTroca(){
         int id = EntradaSaida.inserirInt("Digite o id da troca");
         int posicao = 0;
+        boolean validacaoId = false;
         for (ProdutoTroca pt : listaTroca) {
             if(pt.getId() == id){
                 posicao = listaTroca.indexOf(pt);
+                validacaoId = true;
             }
         }
-        listaTroca.remove(posicao);
-        EntradaSaida.escreverMensagem("Excluido com sucesso!");
+        if(validacaoId == true){
+            listaTroca.remove(posicao);
+            EntradaSaida.escreverMensagem("Excluido com sucesso!\n");
+        }else{EntradaSaida.escreverMensagem("ID não encontrado!!!");}
     }
 
     public void removerUsuarioAdmin(String nomeUsuario,BancoDados bd){

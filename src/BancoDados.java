@@ -9,6 +9,8 @@ public class BancoDados {
         Conta conta = new Conta("", "", "", "", "", "","", "", "");
         
         conta.setEmail("admin");
+        conta.setCpf("admin");
+        conta.setNomeUsuario("admin");
         conta.setSenha("admin");
         
         contas.add(conta);
@@ -42,7 +44,7 @@ public class BancoDados {
         }while(validacao==true);
         
         do{
-            conta.setEmail(EntradaSaida.inserirDadosCadastrais("E-mail"));
+            conta.setEmail(EntradaSaida.inserirEmail());
             validacao=validarNomeUsuario(conta.getEmail());
             Validacao.validarDadosUsuario(validacao, "E-mail já cadastrado.");
         }while(validacao==true);
@@ -106,17 +108,18 @@ public class BancoDados {
                 "\nCEP: "+c.getCep()+"\nEndereço: "+c.getEndereco()+"\nE-mail: "+c.getEmail()+"\nTelefone: "+c.getNumeroTelefone()+"\n\n";
 
                 testeTela=  " ____________________________________________________________________________\n"+
-                            "|                                                [1] EDITAR DADOS CADASTRAIS |\n"+
-                            "|                                                [2] VOLTAR AO MENU          |\n"+
+                            "|                             PERFIL DO USUÁRIO                              |\n"+
                             "|----------------------------------------------------------------------------|\n"+
-                            "|                               PERFIL DO USUÁRIO                            |\n"+
-                            "| Nome de Usuário:                                                           |\n"+
-                            "| Nome Completo:                                                             |\n"+
-                            "| CPF:                                    Data de Nascimento:                |\n"+
+                            "| Nome de Usuário: "+c.getNomeUsuario()+"\n"+
+                            "| Nome Completo: "+c.getNomeCompleto()+"\n"+
+                            "| CPF: "+"                                   Data de Nascimento:                |\n"+
                             "| CEP:                                                                       |\n"+
                             "| Endereço:                                                                  |\n"+
                             "| E-mail:                                                                    |\n"+
                             "| Telefone:                                                                  |\n"+
+                            "|____________________________________________________________________________|\n"+
+                            "|  [1] EDITAR DADOS CADASTRAIS                                               |\n"+
+                            "|  [2] VOLTAR AO MENU                                                        |\n"+
                             "|____________________________________________________________________________|\n"+
                             "|SELECIONE UMA DAS OPÇÕES: "; //fazer o preenchimento com dos atributos de modo que não alterem o desenho.
             }

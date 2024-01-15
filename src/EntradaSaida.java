@@ -37,4 +37,9 @@ public class EntradaSaida {
         return Integer.parseInt(System.console().readLine());
     }
 
+    public static String inserirEmail(){
+        System.out.println("Insira seu e-mail:");
+        return System.console().readLine().toLowerCase();
+    }
+
 }

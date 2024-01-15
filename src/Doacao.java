@@ -15,7 +15,7 @@ public class Doacao {
             switch(opcao){
                 case 1:
                     if(bd.doacao.isEmpty()){
-                        EntradaSaida.escreverMensagem("Não há nenhuma campanha no momento");
+                        EntradaSaida.escreverMensagem("Não há nenhuma campanha no momento"); //colocar temporizador para migrar de tela e aparecer a msgm
                     }else{
                         EntradaSaida.escreverMensagem(bd.visualizarCampanhas());
                         String escolhaUsuario=EntradaSaida.responderPerguntaSimNao("Deseja realizar uma doação?\n").toUpperCase();
@@ -45,14 +45,23 @@ public class Doacao {
                     cd.setLiderOrganizacao(EntradaSaida.inserirDadosCadastrais("Digite o nome do administrador da ONG:"));
                     cd.setCpfLider(EntradaSaida.inserirDadosCadastrais("Insira o CPF do administrador da organização:"));
                     cd.setSenha(EntradaSaida.inserirDadosCadastrais("Crie uma senha para acessar a função admin de sua organização:"));
-                    // cadastrar senha duas vezes para validá-la
+                    
+                    String senhaReescrita = (EntradaSaida.inserirDadosCadastrais("Confirme sua senha:"));
+                    boolean confirmaSenha=Validacao.validarSenha(cd.getSenha(), senhaReescrita);
+                    while(confirmaSenha==false){
+                        System.out.println("Senhas divergentes. Digite-as novamete.");
+                        cd.setSenha(EntradaSaida.inserirDadosCadastrais("Crie uma senha para acessar a função admin de sua organização:"));
+                        senhaReescrita = (EntradaSaida.inserirDadosCadastrais("Confirme sua senha:"));
+                        confirmaSenha=Validacao.validarSenha(cd.getSenha(), senhaReescrita);
+                    }
+
                     cd.setNomeCampanha(EntradaSaida.inserirDadosCadastrais("Insira o nome da campanha:"));
                     cd.setDescricaoCampanha(EntradaSaida.inserirDadosCadastrais("Insira a descrição da campanha:"));
 
                     bd.salvarCampanha(cd);
                     break;
 
-                case 3:
+                case 3: //produtos arrecadados linkados com a campanha
                     EntradaSaida.clearScreen();
                     EntradaSaida.inserirNomeSite();
 

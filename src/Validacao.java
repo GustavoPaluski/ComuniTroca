@@ -51,4 +51,20 @@ public class Validacao {
         }
         return verificador;
     }
+
+    public static boolean validarSenha(String senha, String senhaReescrita) {
+        boolean verificaSenha=false;
+        if(senha==senhaReescrita){
+            verificaSenha=true;
+        }
+        return verificaSenha;
+    }
+
+	public static boolean validarErroLogin(boolean verificaDadosUsuario, int contador) {
+        boolean validarErroLogin=false;
+        if(verificaDadosUsuario==false && contador==3){
+            validarErroLogin=true;
+        }
+		return validarErroLogin;
+	}
 }
