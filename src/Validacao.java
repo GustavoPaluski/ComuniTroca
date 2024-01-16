@@ -54,7 +54,7 @@ public class Validacao {
 
     public static boolean validarSenha(String senha, String senhaReescrita) {
         boolean verificaSenha=false;
-        if(senha==senhaReescrita){
+        if(senha.equals(senhaReescrita)){
             verificaSenha=true;
         }
         return verificaSenha;

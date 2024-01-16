@@ -60,7 +60,7 @@ public class BancoDados {
         conta.setEndereco(EntradaSaida.inserirDadosCadastrais("Endereço"));
         conta.setCep(EntradaSaida.inserirDadosCadastrais("CEP"));
         conta.setNumeroTelefone(EntradaSaida.inserirDadosCadastrais("Telefone"));
-        conta.setSenha(EntradaSaida.inserirDadosCadastrais("Senha"));
+        conta.setSenha(EntradaSaida.inserirDadosCadastrais("Senha")); // digitar senha duas vezes para a confirmação
         salvarDadosCadastrais(conta);
 
         return usuarioAtual;
@@ -128,30 +128,29 @@ public class BancoDados {
     }
 
     //====================Dados Doações====================//
-    ArrayList<CentroDistribuicao> doacao=new ArrayList<CentroDistribuicao>();
+    ArrayList<CentroDistribuicao> listaCampanhas=new ArrayList<CentroDistribuicao>();
 
     public void salvarCampanha(CentroDistribuicao cd){
-        this.doacao.add(cd);
+        this.listaCampanhas.add(cd);
     }
 
-    public String visualizarCampanhas(){
-        String lista="CAMPANHAS DISPONÍVEIS:\n\n";
-        for (CentroDistribuicao cd:this.doacao) {
-            lista+=cd.getNomeCampanha()+"\nAdministrador: "+cd.getLiderOrganizacao()+"\nCentro de Distribuição: "+cd.getLocalDistribuicao()+"\nDescrição: "+cd.getDescricaoCampanha()+"\n";
-        }
-        return lista;
-    }
+    // public String visualizarCampanhas(){
+    //     String lista="CAMPANHAS DISPONÍVEIS:\n\n";
+    //     for (CentroDistribuicao cd:this.listaCampanhas) {
+    //         lista+=cd.getNomeCampanha()+"\nAdministrador: "+cd.getLiderOrganizacao()+"\nCentro de Distribuição: "+cd.getLocalDistribuicao()+"\nDescrição: "+cd.getDescricaoCampanha()+"\n";
+    //     }
+    //     return lista;
+    // } //arrumar 
 
-    public String visualizarCampanhaDoUsuario(String nomeCampanha, String nomeLiderCampanha, String cpfLiderCampanha, String senhaLiderCampanha){
-        String retorno="";
-        for (CentroDistribuicao cd: this.doacao) {
-            if(nomeCampanha.equals(cd.getNomeCampanha())||nomeLiderCampanha.equals(cd.getLiderOrganizacao())||cpfLiderCampanha.equals(cd.getCpfLider())||senhaLiderCampanha.equals(cd.getSenha())){
-                retorno="Nome da Campanha: "+cd.getNomeCampanha()+"\nAdministrador: "+cd.getLiderOrganizacao()+"\nCPF Administrador: "+cd.getCpfLider()+"\nCentro de Distribuição: "+cd.getLocalDistribuicao()
-                +"\nSenha: "+cd.getSenha()+"\nDescrição: "+cd.getLocalDistribuicao();
+	public boolean verificarExistenciaCampanha(String nomeCampanha) {
+        boolean verificaExistenciaCampanha=false;
+		for (CentroDistribuicao cd : this.listaCampanhas) {
+            if(cd.getNomeCampanha().equals(nomeCampanha)){
+                verificaExistenciaCampanha=true;
             }
         }
-        return retorno;
-    }
+        return verificaExistenciaCampanha;
+	}
 
     
 }

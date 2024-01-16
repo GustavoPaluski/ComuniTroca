@@ -14,10 +14,10 @@ public class Doacao {
             CentroDistribuicao cd=new CentroDistribuicao();
             switch(opcao){
                 case 1:
-                    if(bd.doacao.isEmpty()){
+                    if(bd.listaCampanhas.isEmpty()){
                         EntradaSaida.escreverMensagem("Não há nenhuma campanha no momento"); //colocar temporizador para migrar de tela e aparecer a msgm
                     }else{
-                        EntradaSaida.escreverMensagem(bd.visualizarCampanhas());
+                        // EntradaSaida.escreverMensagem(bd.visualizarCampanhas());
                         String escolhaUsuario=EntradaSaida.responderPerguntaSimNao("Deseja realizar uma doação?\n").toUpperCase();
 
                         if(escolhaUsuario.equals("NÃO")||escolhaUsuario.equals("NAO")){
@@ -41,36 +41,32 @@ public class Doacao {
                     EntradaSaida.clearScreen();
                     EntradaSaida.inserirNomeSite();
                     
-                    cd.setLocalDistribuicao(EntradaSaida.inserirDadosCadastrais("Informe o endereço onde os produtos serão distribuídos:"));
-                    cd.setLiderOrganizacao(EntradaSaida.inserirDadosCadastrais("Digite o nome do administrador da ONG:"));
-                    cd.setCpfLider(EntradaSaida.inserirDadosCadastrais("Insira o CPF do administrador da organização:"));
-                    cd.setSenha(EntradaSaida.inserirDadosCadastrais("Crie uma senha para acessar a função admin de sua organização:"));
+                    cd.setCategoria(EntradaSaida.escolherCategoriaDoacao());
                     
-                    String senhaReescrita = (EntradaSaida.inserirDadosCadastrais("Confirme sua senha:"));
-                    boolean confirmaSenha=Validacao.validarSenha(cd.getSenha(), senhaReescrita);
-                    while(confirmaSenha==false){
-                        System.out.println("Senhas divergentes. Digite-as novamete.");
-                        cd.setSenha(EntradaSaida.inserirDadosCadastrais("Crie uma senha para acessar a função admin de sua organização:"));
-                        senhaReescrita = (EntradaSaida.inserirDadosCadastrais("Confirme sua senha:"));
-                        confirmaSenha=Validacao.validarSenha(cd.getSenha(), senhaReescrita);
-                    }
+                    boolean verificaExistenciaCampanha=false;
+                    do{
+                        cd.setNomeCampanha(EntradaSaida.inserirDadosCadastrais("Insira o nome da campanha:")); 
+                        verificaExistenciaCampanha=bd.verificarExistenciaCampanha(cd.getNomeCampanha());
+                        if(verificaExistenciaCampanha == true){
+                            EntradaSaida.escreverMensagem("Campanha já existente! Coloque outro nome.");
+                        }
+                    }while(verificaExistenciaCampanha==true);
 
-                    cd.setNomeCampanha(EntradaSaida.inserirDadosCadastrais("Insira o nome da campanha:"));
                     cd.setDescricaoCampanha(EntradaSaida.inserirDadosCadastrais("Insira a descrição da campanha:"));
-
+                    cd.setLocalDistribuicao(EntradaSaida.inserirDadosCadastrais("Informe o endereço onde os produtos serão distribuídos:"));
+                    
                     bd.salvarCampanha(cd);
                     break;
 
-                case 3: //produtos arrecadados linkados com a campanha
+                case 3: 
                     EntradaSaida.clearScreen();
                     EntradaSaida.inserirNomeSite();
-
-                    String nomeCampanha=EntradaSaida.inserirDadosCadastrais("Digite o nome da campanha:");
-                    String nomeLiderCampanha=EntradaSaida.inserirDadosCadastrais("Digite o nome do Administrador da organização:");
-                    String cpfLiderCampanha=EntradaSaida.inserirDadosCadastrais("Digite o CPF do Administrador:");
-                    String senhaLiderCampanha=EntradaSaida.inserirDadosCadastrais("Digite a senha do Administrador da campanha:");
                     
-                    EntradaSaida.escreverMensagem("Os dados de sua organização são:\n\n"+bd.visualizarCampanhaDoUsuario(nomeCampanha, nomeLiderCampanha, cpfLiderCampanha, senhaLiderCampanha));
+                    String nomeCampanha=EntradaSaida.inserirDadosCadastrais("Digite o nome da campanha:");
+                    String cpfLiderCampanha=EntradaSaida.inserirDadosCadastrais("Digite o CPF do organizador:");
+                    String senhaLiderCampanha=EntradaSaida.inserirDadosCadastrais("Digite a senha do organizador da campanha:");
+                    
+                    //produtos arrecadados linkados com a campanha
                     //validar se os dados estão corretos
                     //opcao de alterar dados
                     break;

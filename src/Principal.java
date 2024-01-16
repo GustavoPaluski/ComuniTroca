@@ -64,21 +64,23 @@ public class Principal {
                 if(verificarAdmin==false){ //MENU PRINCIPAL:
                     do{
                         EntradaSaida.inserirNomeSite();
-                        opcao = EntradaSaida.escolherOpcao("[1] - Doações\n[2] - Trocas\n[3] - Notícias\n[4] - Grupos\n[5] - Perfil\n[6] - Deslogar-se\n[7] - Sair");
+                        opcao = EntradaSaida.escolherOpcao("[1] - Doações\n[2] - Trocas\n[3] - Notícias\n[4] - Chat\n[5] - Perfil\n[6] - Deslogar-se\n[7] - Sair");
                         opcao = Validacao.validarEscolhaMenu(1, 7, opcao);
                         switch (opcao){
                             case 1:
-                                Doacao.visualizarMenuDoacao();
+                                Doacao.visualizarMenuDoacao(); //finalizar
                                 break;
                             
                             case 2:
                                 Troca.visualizarMenuTroca();
                                 break;
                 
-                            case 3: //deixar de lado por enquanto (vetor de string) - adm att
+                            case 3: //adm att
+                                EntradaSaida.mostrarNoticias();
                                 break;
                 
-                            case 4: //troca de msgns com um randi de respostas 
+                            case 4: 
+                                EntradaSaida.mostarRespostasChat();
                                 break;
                 
                             case 5: //possibilidade de alterar alguns dados
@@ -99,7 +101,7 @@ public class Principal {
                         opcao = EntradaSaida.escolherOpcao("[1] - Remover Usuário\n[2] - Remover Publicação\n[3] - Deslogar-se\n[4] - Sair"); //possibilidade de modificar as notícias
                         opcao = Validacao.validarEscolhaMenu(1, 4, opcao);
                         switch(opcao){
-                            case 1: //remover ususarios e suas publicacoes 
+                            case 1: //remover ususarios e suas publicacoes - conferir se esta pronto
                                 int tamanho = bd.contas.size();
                                 EntradaSaida.escreverMensagem("TAMANHO DA LISTA DE CONTAS: "+tamanho);
                                 String nomeUsuario = EntradaSaida.inserirDadosCadastrais("Digite o nome de usuário que deseja excluir");

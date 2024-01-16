@@ -3,12 +3,16 @@ import java.util.ArrayList;
 public class CentroDistribuicao {
     
     private String localDistribuicao;
-    private String liderOrganizacao;
-    private String cpfLider;
-    private String senha;
     private String nomeCampanha;
     private String descricaoCampanha;
+    private String categoria;
 
+    public String getCategoria() {
+        return categoria;
+    }
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
     ArrayList<ProdutoDoacao> listaDoacao=new ArrayList<ProdutoDoacao>();
 
     public String getDescricaoCampanha(){
@@ -23,28 +27,11 @@ public class CentroDistribuicao {
     public void setNomeCampanha(String nomeCampanha){
         this.nomeCampanha = nomeCampanha;
     }
-    public String getCpfLider() {
-        return cpfLider;
-    }
-    public void setCpfLider(String cpfLider) {
-        this.cpfLider = cpfLider;
-    }
-    public String getSenha() {
-        return senha;
-    }
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+
     public String getLocalDistribuicao() {
         return localDistribuicao;
     }
     public void setLocalDistribuicao(String centroDistribuicao) {
         this.localDistribuicao = centroDistribuicao;
-    }
-    public String getLiderOrganizacao() {
-        return liderOrganizacao;
-    }
-    public void setLiderOrganizacao(String liderOrganizacao) {
-        this.liderOrganizacao = liderOrganizacao;
     }
 }
