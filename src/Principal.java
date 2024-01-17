@@ -21,7 +21,7 @@ public class Principal {
                     case 1:
                         EntradaSaida.clearScreen();
                         EntradaSaida.inserirNomeSite();
-                        bd.cadastrarUsuario();
+                        usuarioAtual=bd.cadastrarUsuario();
                         break;
                     
                     case 2:
@@ -68,7 +68,7 @@ public class Principal {
                         opcao = Validacao.validarEscolhaMenu(1, 7, opcao);
                         switch (opcao){
                             case 1:
-                                Doacao.visualizarMenuDoacao(); //finalizar
+                                Doacao.visualizarMenuDoacao(usuarioAtual); //finalizar
                                 break;
                             
                             case 2:
@@ -84,7 +84,7 @@ public class Principal {
                                 break;
                 
                             case 5: //possibilidade de alterar alguns dados
-                                EntradaSaida.inserirDadosCadastrais(bd.visualizarPerfilUsusario(usuarioAtual));
+                                EntradaSaida.escreverMensagem(bd.visualizarPerfilUsusario(usuarioAtual));
                                 break;
 
                             case 6:
@@ -102,7 +102,7 @@ public class Principal {
                         opcao = Validacao.validarEscolhaMenu(1, 4, opcao);
                         switch(opcao){
                             case 1: //remover ususarios e suas publicacoes - conferir se esta pronto
-                                int tamanho = bd.contas.size();
+                                int tamanho = bd.listaContas.size();
                                 EntradaSaida.escreverMensagem("TAMANHO DA LISTA DE CONTAS: "+tamanho);
                                 String nomeUsuario = EntradaSaida.inserirDadosCadastrais("Digite o nome de usuário que deseja excluir");
                                 c.removerUsuarioAdmin(nomeUsuario,bd);

@@ -1,20 +1,31 @@
-import java.util.ArrayList;
-
 public class CentroDistribuicao {
     
     private String localDistribuicao;
     private String nomeCampanha;
     private String descricaoCampanha;
     private String categoria;
+    private String produtosArrecadados;
 
+    public CentroDistribuicao(String localDistribuicao, String nomeCampanha, String descricaoCampanha, String categoria,
+            String produtosArrecadados) {
+        this.localDistribuicao = localDistribuicao;
+        this.nomeCampanha = nomeCampanha;
+        this.descricaoCampanha = descricaoCampanha;
+        this.categoria = categoria;
+        this.produtosArrecadados = produtosArrecadados;
+    }
+    public String getProdutosArrecadados() {
+        return produtosArrecadados;
+    }
+    public void setProdutosArrecadados(String produtosArrecadados) {
+        this.produtosArrecadados = produtosArrecadados;
+    }
     public String getCategoria() {
         return categoria;
     }
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-    ArrayList<ProdutoDoacao> listaDoacao=new ArrayList<ProdutoDoacao>();
-
     public String getDescricaoCampanha(){
         return descricaoCampanha;
     }

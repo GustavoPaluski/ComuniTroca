@@ -48,7 +48,7 @@ public class EntradaSaida {
         String retorno="";
         int opcaoCategoria=0;
         do{
-            System.out.println("Selecione uma das categorias abaixo:\n[1] - Roupas\n[2] - Móveis\n[3] - Alimentos\n[] - Brinquedos");
+            System.out.println("Selecione uma das categorias abaixo:\n[1] - Roupas\n[2] - Móveis\n[3] - Alimentos\n[4] - Brinquedos");
             opcaoCategoria=Integer.parseInt(System.console().readLine());
             switch (opcaoCategoria) {
                 case 1:

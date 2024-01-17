@@ -1,9 +1,23 @@
-fazer subclasses para os dados cadastrais 
+Limitar a quantidade de caracteres das descrições de produtos e campanhas
+Conferir se os dados estão salvando
 
-tirar variaveis do infinitivo
 
-verificar se após cadastrar a troca os dados do usuário ficam ligados a ela
+String testeTela="";//temporário
 
-inserir possibilidade do admin visualizar contas
+testeTela=  " ____________________________________________________________________________\n"+
+                            "|                             PERFIL DO USUÁRIO                              |\n"+
+                            "|----------------------------------------------------------------------------|\n"+
+                            "| Nome de Usuário: "+c.getNomeUsuario()+"\n"+
+                            "| Nome Completo: "+c.getNomeCompleto()+"\n"+
+                            "| CPF: "+"                                   Data de Nascimento:                |\n"+
+                            "| CEP:                                                                       |\n"+
+                            "| Endereço:                                                                  |\n"+
+                            "| E-mail:                                                                    |\n"+
+                            "| Telefone:                                                                  |\n"+
+                            "|____________________________________________________________________________|\n"+
+                            "|  [1] EDITAR DADOS CADASTRAIS                                               |\n"+
+                            "|  [2] VOLTAR AO MENU                                                        |\n"+
+                            "|____________________________________________________________________________|\n"+
+                            "|SELECIONE UMA DAS OPÇÕES: "; //fazer o preenchimento com dos atributos de modo que não alterem o desenho.
 
-definição de categorias para a doação: roupa, móveis, alimentos, brinquedos
+Fazer validações para email (Ver se tem @gmail.com, @yahoo.com) 

@@ -156,14 +156,14 @@ public class Conta {
 
         posicao=0;
         validacao = false;   
-        for (Conta c : bd.contas) { 
+        for (Conta c : bd.listaContas) { 
             if(c.getNomeUsuario().equals(nomeUsuario)){
                 validacao=true;
-                posicao=bd.contas.indexOf(c);
+                posicao=bd.listaContas.indexOf(c);
             }
         }
         if(validacao){
-            bd.contas.remove(posicao);
+            bd.listaContas.remove(posicao);
         }else{EntradaSaida.escreverMensagem("Nenhum usúario encontrado");}
     }
 }

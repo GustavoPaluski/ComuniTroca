@@ -1,8 +1,8 @@
 public class Doacao {
     
-    public static void visualizarMenuDoacao(){
+    public static void visualizarMenuDoacao(String usuarioAtual){
 
-        int opcao=0;
+        int opcao=0; String salvarProdutosNaCampanha=""; String salvarCampanhaNaContaUsuario="";
         BancoDados bd=new BancoDados();
 
         do{
@@ -11,7 +11,8 @@ public class Doacao {
             opcao=EntradaSaida.escolherOpcao("[1] - Visualizar Campanhas\n[2] - Criar Campanha\n[3] - Acessar Minha Campanha\n[4] - Sair da Página");
             opcao=Validacao.validarEscolhaMenu(1, 5, opcao);
             
-            CentroDistribuicao cd=new CentroDistribuicao();
+            CentroDistribuicao cd = new CentroDistribuicao("", "", "", "", "");
+            
             switch(opcao){
                 case 1:
                     if(bd.listaCampanhas.isEmpty()){
@@ -38,6 +39,9 @@ public class Doacao {
                     //verificar se existe um timer para passar de uma campanha para outra
                     // fazer doação
                 case 2:
+                    salvarProdutosNaCampanha="";
+                    salvarCampanhaNaContaUsuario="";
+
                     EntradaSaida.clearScreen();
                     EntradaSaida.inserirNomeSite();
                     
@@ -54,8 +58,12 @@ public class Doacao {
 
                     cd.setDescricaoCampanha(EntradaSaida.inserirDadosCadastrais("Insira a descrição da campanha:"));
                     cd.setLocalDistribuicao(EntradaSaida.inserirDadosCadastrais("Informe o endereço onde os produtos serão distribuídos:"));
-                    
+                    cd.setProdutosArrecadados(bd.concatenarProdutosArrecadados(cd.getProdutosArrecadados()));
+
                     bd.salvarCampanha(cd);
+                    //salvar dados da campanha com o usuário - em desenvolvimento
+                    // metodo contructor para os produtos doados
+                    
                     break;
 
                 case 3: 

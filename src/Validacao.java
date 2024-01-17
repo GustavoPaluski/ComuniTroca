@@ -1,4 +1,10 @@
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.ResourceBundle.Control;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.text.MaskFormatter;
 
 public class Validacao {
     
@@ -67,4 +73,18 @@ public class Validacao {
         }
 		return validarErroLogin;
 	}
+
+    public static String formatNumericString(String string, String mask) throws java.text.ParseException {
+        javax.swing.text.MaskFormatter mf = new javax.swing.text.MaskFormatter(mask);
+        mf.setValueContainsLiteralCharacters(false);
+        return mf.valueToString(string);
+    }
+
+    public static String formartCpf(String cpf) {
+        try {
+            return formatNumericString(cpf, "###.###.###-##");
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 }
