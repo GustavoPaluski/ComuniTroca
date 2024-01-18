@@ -20,4 +20,15 @@ testeTela=  " __________________________________________________________________
                             "|____________________________________________________________________________|\n"+
                             "|SELECIONE UMA DAS OPÇÕES: "; //fazer o preenchimento com dos atributos de modo que não alterem o desenho.
 
-Fazer validações para email (Ver se tem @gmail.com, @yahoo.com) 
+Fazer validações para DDD existente numero (pensar se é necessário)
+Limitar o nome da pessoa para até 64 caracteres e mínimo 4 caracteres
+Não possuir nenhum caracter depois do @'email'.com
+Limitar o min e max do caracter do email
+Validar datag
+Digitar senha duas vezes para validá-la
+
+- FAZER REMOÇÃO DE PUBLICAÇÃO
+- Finalizar doação
+- ARRUMAR OS LIMPATELAS (ESTÁ FALTANDO EM ALGUMAS PARTES DO CÓDIGO)
+- DEIXAR O LAYOUT MAIS BONITO
+- FINALIZAR VALIDAÇÕES

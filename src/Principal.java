@@ -15,48 +15,51 @@ public class Principal {
                 contador=0;
                 EntradaSaida.clearScreen();
                 EntradaSaida.inserirNomeSite();
-                opcao = EntradaSaida.escolherOpcao("[1] - Cadastrar Usuário\n[2] - Fazer Login\n[3] - Sair");
-                opcao = Validacao.validarEscolhaMenu(1, 3, opcao);
-                switch (opcao){
-                    case 1:
-                        EntradaSaida.clearScreen();
-                        EntradaSaida.inserirNomeSite();
-                        usuarioAtual=bd.cadastrarUsuario();
-                        break;
-                    
-                    case 2:
-                        EntradaSaida.clearScreen();
-                        EntradaSaida.inserirNomeSite();
+                try{
+                    opcao = EntradaSaida.escolherOpcao("[1] - Cadastrar Usuário\n[2] - Fazer Login\n[3] - Sair");
+                    opcao = Validacao.validarEscolhaMenu(1, 3, opcao);
+                    switch (opcao){
+                        case 1:
+                            EntradaSaida.clearScreen();
+                            EntradaSaida.inserirNomeSite();
+                            usuarioAtual=bd.cadastrarUsuario();
+                            break;
+                        
+                        case 2:
+                            EntradaSaida.clearScreen();
+                            EntradaSaida.inserirNomeSite();
 
-                        boolean verificaDadosUsuario=false;
-                        String nomeEmailCpf="";
-                        String senhaUsuario="";
+                            boolean verificaDadosUsuario=false;
+                            String nomeEmailCpf="";
+                            String senhaUsuario="";
 
-                        do{
-                            nomeEmailCpf=EntradaSaida.inserirDadosCadastrais("Informe seu Nome de Usuário/CPf/E-mail");
+                            do{
+                                nomeEmailCpf=EntradaSaida.inserirDadosCadastrais("Informe seu Nome de Usuário/CPf/E-mail");
 
-                            senhaUsuario=EntradaSaida.inserirDadosCadastrais("Digite sua senha");
-                            verificaDadosUsuario=bd.validarSenhaUsuario(senhaUsuario,nomeEmailCpf);
-                            if(verificaDadosUsuario == false){
-                                contador++;
-                                if(contador != 3){
-                                    EntradaSaida.escreverMensagem("Usuário ou senha incorretos, tente novamente!\n");
+                                senhaUsuario=EntradaSaida.inserirDadosCadastrais("Digite sua senha");
+                                verificaDadosUsuario=bd.validarSenhaUsuario(senhaUsuario,nomeEmailCpf);
+                                if(verificaDadosUsuario == false){
+                                    contador++;
+                                    if(contador != 3){
+                                        EntradaSaida.escreverMensagem("Usuário ou senha incorretos, tente novamente!\n");
+                                    }
                                 }
-                            }
-                            
-                            verificadorErroLogin=Validacao.validarErroLogin(verificaDadosUsuario, contador);
-                            
-                        }while(verificaDadosUsuario==false && contador < 3); 
                                 
-                        verificarAdmin=Validacao.verificarAdmin(nomeEmailCpf, senhaUsuario); 
+                                verificadorErroLogin=Validacao.validarErroLogin(verificaDadosUsuario, contador);
+                                
+                            }while(verificaDadosUsuario==false && contador < 3); 
+                                    
+                            verificarAdmin=Validacao.verificarAdmin(nomeEmailCpf, senhaUsuario); 
 
-                        usuarioAtual=nomeEmailCpf;
-                        break;
-        
-                    case 3:
-                        System.exit(0);
-                        break;
-                }
+                            usuarioAtual=nomeEmailCpf;
+                            break;
+            
+                        case 3:
+                            System.exit(0);
+                            break;
+                        }
+                }catch (NumberFormatException nfe) {EntradaSaida.escreverMensagem("Opção inválida!");}
+
             }while(opcao!=1 && opcao!=2);
 
             if(verificadorErroLogin == false){

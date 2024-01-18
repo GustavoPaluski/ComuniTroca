@@ -38,41 +38,39 @@ public class BancoDados {
         
         boolean validacao=false;
         boolean validaCaractere=false;
-        int quantidadeCPF = 0;
+        int quantidadeNumerosDaString = 0;
         do{
             do{
                 conta.setCpf(EntradaSaida.inserirDadosCadastrais("CPF"));
-                quantidadeCPF = conta.getCpf().length();
-                    validaCaractere = conta.getCpf().matches("-?\\d+");
-                if(quantidadeCPF != 11 || validaCaractere==false){EntradaSaida.escreverMensagem("\nCPF Inválido, tente novamente\n");}else {validacao=true;}
+                quantidadeNumerosDaString = conta.getCpf().length();
+                validaCaractere = conta.getCpf().matches("-?\\d+");
+                if(quantidadeNumerosDaString != 11 || validaCaractere==false){EntradaSaida.escreverMensagem("\nCPF Inválido, tente novamente\n");}else {validacao=true;}
             }while(validacao==false);
             validacao=validarNomeUsuario(conta.getCpf());
             Validacao.validarDadosUsuario(validacao, "CPF já cadastrado.");
         }while(validacao==true);
         
         int emailValido = 0;
+        int verificaEmail = 0;
+        String testeEmail = "";
         do{
             do{
                 conta.setEmail(EntradaSaida.inserirEmail());
-                emailValido = conta.getEmail().indexOf("@gmail.com");
-                // if(emailValido==-1){
-                //     emailValido = conta.getEmail().indexOf("@outlook.com");
-                //     if(emailValido==-1){
-                //         emailValido = conta.getEmail().indexOf("@yahoo.com");
-                //         if(emailValido==-1){
-                //             emailValido = conta.getEmail().indexOf("@icloud.com");
-                //         }
-                //     }
-                // }
-                String vetorEmails[]= {"@gmail.com", "@outlook.com", "@yahoo.com", "@icloud.com"};
-                for(int i=0; i<4;i++){
-                    emailValido = conta.getEmail().indexOf(vetorEmails[i]);
-                }//CONTINUAR BREAK DPS QUE -1
+                String vetorEmails[]= {"@gmail.com", "@outlook.com", "@yahoo.com", "@icloud.com", "@hotmail.com"};
 
-                    if(emailValido == -1){
-                        EntradaSaida.escreverMensagem("\nEMAIL INVÁLIDO\n");
+                for(int i=0; i<5;i++){
+                    emailValido = conta.getEmail().indexOf(vetorEmails[i]);
+                    if(emailValido!=-1){
+                        testeEmail = conta.getEmail().replaceAll(" ","#@#ERRO#@#");
+                        verificaEmail = testeEmail.indexOf("#@#ERRO#@#");
+                        break;
                     }
-            }while(emailValido == -1);
+                }
+                if(emailValido == -1 || verificaEmail != -1 ){
+                    EntradaSaida.escreverMensagem("\nEMAIL INVÁLIDO\n");
+                }
+            }while(emailValido == -1 || verificaEmail != -1);
+            
             validacao=validarNomeUsuario(conta.getEmail());
             Validacao.validarDadosUsuario(validacao, "E-mail já cadastrado.");
         }while(validacao==true);
@@ -86,8 +84,28 @@ public class BancoDados {
 
         conta.setDataNascimento(EntradaSaida.inserirDadosCadastrais("data de nascimento"));
         conta.setEndereco(EntradaSaida.inserirDadosCadastrais("Endereço"));
-        conta.setCep(EntradaSaida.inserirDadosCadastrais("CEP"));
-        conta.setNumeroTelefone(EntradaSaida.inserirDadosCadastrais("Telefone"));
+        
+        validacao=false;
+        quantidadeNumerosDaString=0;
+        validaCaractere=false;
+        do{
+            conta.setCep(EntradaSaida.inserirDadosCadastrais("CEP"));
+            quantidadeNumerosDaString=conta.getCep().length();
+            validaCaractere=conta.getCep().matches("-?\\d+");
+            if(quantidadeNumerosDaString != 8 || validaCaractere==false){EntradaSaida.escreverMensagem("CEP inválido, tente novamente:");}else{validacao=true;}
+        }while(validacao==false);
+
+        validacao=false;
+        quantidadeNumerosDaString=0;
+        validaCaractere=false;
+        do{
+            conta.setNumeroTelefone(EntradaSaida.inserirDadosCadastrais("Telefone"));
+            quantidadeNumerosDaString=conta.getNumeroTelefone().length();
+            validaCaractere=conta.getNumeroTelefone().matches("-?\\d+");
+            if(quantidadeNumerosDaString != 11 || validaCaractere==false){
+                EntradaSaida.escreverMensagem("Número de telefone inválido, tente novamente: ");}else{validacao=true;}
+        }while(validacao==false); 
+
         conta.setSenha(EntradaSaida.inserirDadosCadastrais("Senha")); // digitar senha duas vezes para a confirmação
         salvarDadosCadastrais(conta);
 
