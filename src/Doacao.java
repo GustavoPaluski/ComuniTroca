@@ -1,82 +1,107 @@
 public class Doacao {
     
-    public static void visualizarMenuDoacao(String usuarioAtual){
+    public static void visualizarMenuDoacao(String usuarioAtual,BancoDados bd, ProdutoDoacao pD){
 
-        int opcao=0; String salvarProdutosNaCampanha=""; String salvarCampanhaNaContaUsuario="";
-        BancoDados bd=new BancoDados();
-
+        int opcao=0; 
+        CentroDistribuicao cd = new CentroDistribuicao("", "", "", "", "");
+        
+        
         do{
             EntradaSaida.clearScreen();   
             EntradaSaida.inserirNomeSite();
             opcao=EntradaSaida.escolherOpcao("[1] - Visualizar Campanhas\n[2] - Criar Campanha\n[3] - Acessar Minha Campanha\n[4] - Sair da Página");
             opcao=Validacao.validarEscolhaMenu(1, 5, opcao);
             
-            CentroDistribuicao cd = new CentroDistribuicao("", "", "", "", "");
-            
             switch(opcao){
                 case 1:
                     if(bd.listaCampanhas.isEmpty()){
-                        EntradaSaida.escreverMensagem("Não há nenhuma campanha no momento"); //colocar temporizador para migrar de tela e aparecer a msgm
+                        EntradaSaida.escreverMensagem("Não há nenhuma campanha no momento"); 
+                        EntradaSaida.pressionarEnterParaContinuar();
                     }else{
-                        // EntradaSaida.escreverMensagem(bd.visualizarCampanhas());
-                        String escolhaUsuario=EntradaSaida.responderPerguntaSimNao("Deseja realizar uma doação?\n").toUpperCase();
+                        EntradaSaida.escreverMensagem(bd.visualizarCampanhas());
+                        String escolhaUsuario=EntradaSaida.responderPerguntaSimNao("\n\nDeseja realizar uma doação?\n").toUpperCase();
 
                         if(escolhaUsuario.equals("NÃO")||escolhaUsuario.equals("NAO")){
                             break;
-                        }else{
-                            String campanhaSelecionada=EntradaSaida.inserirDadosCadastrais("Digite o nome da campanha que você deseja realizar a doação:");
-                            //validar campanha existente
+                        }else if (escolhaUsuario.equals("SIM")){
+                            boolean campanhaValida = false;
+                            do{
+                                pD.setDestinoDoacao(EntradaSaida.inserirDadosCadastrais("Digite o nome da campanha que você deseja realizar a doação:"));
+                                campanhaValida=bd.verificarExistenciaCampanha(pD.getDestinoDoacao());
+                                if(campanhaValida==false){
+                                    EntradaSaida.escreverMensagem("Campanha inserida inválida!");
+                                }
+                            }while(campanhaValida!=true);
 
-                            ProdutoDoacao pD=new ProdutoDoacao();
                             pD.setNome(EntradaSaida.inserirDadosCadastrais("Insira o nome do produto que será doado:"));  
-                            pD.setCategoria(EntradaSaida.inserirDadosCadastrais("Informe a categoria do produto: (Vestimentas, Alimentos, Móveis)"));
-                            //validar categoria, ou selecionar uma opção.  pedir categoria para o centro de distribuição tambem, assim o produto fica voltado a uma campanha
+                            pD.setCategoria(EntradaSaida.escolherCategoriaDoacao());
                             pD.setDescricao(EntradaSaida.inserirDadosCadastrais("Descreva o estado do produto e sua quantidade:"));
-                            //verificar se a descrição será assim e add o objeto no arraylist
+                            bd.salvarProdutosDoados(pD);
+
+                            bd.salvarProdutosArrecadadosNaCampanha(pD.getDestinoDoacao(), bd.concatenarProdutosArrecadados(pD.getDestinoDoacao()));
+                        }else{
+                            EntradaSaida.escreverMensagem("A opção digitada não corresponde as informadas!");
                         }
                     }
                     break;
-                    //verificar se existe um timer para passar de uma campanha para outra
-                    // fazer doação
                 case 2:
-                    salvarProdutosNaCampanha="";
-                    salvarCampanhaNaContaUsuario="";
-
                     EntradaSaida.clearScreen();
                     EntradaSaida.inserirNomeSite();
                     
-                    cd.setCategoria(EntradaSaida.escolherCategoriaDoacao());
-                    
-                    boolean verificaExistenciaCampanha=false;
-                    do{
-                        cd.setNomeCampanha(EntradaSaida.inserirDadosCadastrais("Insira o nome da campanha:")); 
-                        verificaExistenciaCampanha=bd.verificarExistenciaCampanha(cd.getNomeCampanha());
-                        if(verificaExistenciaCampanha == true){
-                            EntradaSaida.escreverMensagem("Campanha já existente! Coloque outro nome.");
-                        }
-                    }while(verificaExistenciaCampanha==true);
+                    if(bd.verificarExistenciaDeUmaCampanhaPorUsuario(usuarioAtual)==true){
+                        EntradaSaida.escreverMensagem("Você já possui uma campanha!");
+                    }else{
+                        cd.setCategoria(EntradaSaida.escolherCategoriaDoacao());
+                        
+                        boolean verificaExistenciaCampanha=false;
+                        do{
+                            cd.setNomeCampanha(EntradaSaida.inserirDadosCadastrais("Insira o nome da campanha:")); 
+                            verificaExistenciaCampanha=bd.verificarExistenciaCampanha(cd.getNomeCampanha());
+                            if(verificaExistenciaCampanha == true){
+                                EntradaSaida.escreverMensagem("Campanha já existente! Coloque outro nome.");
+                            }
+                        }while(verificaExistenciaCampanha==true);
 
-                    cd.setDescricaoCampanha(EntradaSaida.inserirDadosCadastrais("Insira a descrição da campanha:"));
-                    cd.setLocalDistribuicao(EntradaSaida.inserirDadosCadastrais("Informe o endereço onde os produtos serão distribuídos:"));
-                    cd.setProdutosArrecadados(bd.concatenarProdutosArrecadados(cd.getProdutosArrecadados()));
-
-                    bd.salvarCampanha(cd);
-                    //salvar dados da campanha com o usuário - em desenvolvimento
-                    // metodo contructor para os produtos doados
-                    
+                        cd.setDescricaoCampanha(EntradaSaida.inserirDadosCadastrais("Insira a descrição da campanha:"));
+                        cd.setLocalDistribuicao(EntradaSaida.inserirDadosCadastrais("Informe o endereço onde os produtos serão distribuídos:"));
+                        cd.setProdutosArrecadados(bd.concatenarProdutosArrecadados(cd.getProdutosArrecadados()));
+                        cd.setAdminCampanha(usuarioAtual);
+                        bd.salvarCampanha(cd);
+                    }
                     break;
 
                 case 3: 
                     EntradaSaida.clearScreen();
                     EntradaSaida.inserirNomeSite();
                     
-                    String nomeCampanha=EntradaSaida.inserirDadosCadastrais("Digite o nome da campanha:");
-                    String cpfLiderCampanha=EntradaSaida.inserirDadosCadastrais("Digite o CPF do organizador:");
-                    String senhaLiderCampanha=EntradaSaida.inserirDadosCadastrais("Digite a senha do organizador da campanha:");
+                    EntradaSaida.escreverMensagem(bd.concatenarDadosCampanha(usuarioAtual));
+
+                    int opcaoPerfilCampanha=EntradaSaida.escolherOpcao("[1] - Editar Campanha\n[2] - Excluir Campanha\n[3] - Voltar");
+                    switch (opcaoPerfilCampanha) {
+                        case 1:
+                            EntradaSaida.escreverMensagem("Digite qual atributo você deseja alterar: (Descrição / Endereço)");
+                            String retorno=EntradaSaida.retornarRespostaUsuario().toUpperCase();
+
+                            if(retorno.equals("DESCRICAO")||retorno.equals("DESCRIÇÃO")){
+                                bd.editarDescricaoCampanha(usuarioAtual);
+                                EntradaSaida.escreverMensagem("Descrição alterada com sucesso!");
+                                EntradaSaida.pressionarEnterParaContinuar();
+                            }else if(retorno.equals("ENDEREÇO")||retorno.equals("ENDERECO")){
+                                bd.editarLocalCampanha(usuarioAtual);
+                                EntradaSaida.escreverMensagem("Endereço alterado com sucesso!");
+                                EntradaSaida.pressionarEnterParaContinuar();
+                            }else{
+                                EntradaSaida.escreverMensagem("Opção informada inválida!");
+                            }
+                            break;
                     
-                    //produtos arrecadados linkados com a campanha
-                    //validar se os dados estão corretos
-                    //opcao de alterar dados
+                        case 2:
+                            bd.deletarCampanha(usuarioAtual);
+                            break;
+
+                        case 3:
+                            break;
+                    }
                     break;
 
                 case 4:

@@ -1,9 +1,16 @@
+import java.util.Calendar;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
 public class BancoDados {
     
     //===================Dados Do Usuário===================//
     ArrayList<Conta> listaContas = new ArrayList<Conta>();
+
+    Calendar c = Calendar.getInstance();
+    Date data = c.getTime();
 
     public void admin(){//ADMIN
         Conta conta = new Conta("", "", "", "", "", "","", "", "");
@@ -32,9 +39,17 @@ public class BancoDados {
 
     public String cadastrarUsuario(){ 
         String usuarioAtual="";
+        String nomeCompleto = "";
+        int tamanhoNomeCompleto = 0;
         Conta conta = new Conta("", "", "", "", "", "", "", "", "");
 
-        conta.setNomeCompleto(EntradaSaida.inserirDadosCadastrais("Nome completo"));
+        do{
+            nomeCompleto = EntradaSaida.inserirDadosCadastrais("Nome completo");
+            tamanhoNomeCompleto = nomeCompleto.length();
+            if(tamanhoNomeCompleto < 2 || tamanhoNomeCompleto > 64){
+                EntradaSaida.escreverMensagem("Número de letras insuficiente!");
+            }else{conta.setNomeCompleto(nomeCompleto);}
+        }while(tamanhoNomeCompleto < 2 || tamanhoNomeCompleto > 64);
         
         boolean validacao=false;
         boolean validaCaractere=false;
@@ -52,22 +67,34 @@ public class BancoDados {
         
         int emailValido = 0;
         int verificaEmail = 0;
+        int tamanhoEmail = 0;
+        int posicaoPontoCom = 0;
         String testeEmail = "";
+        String novo_email = "";
         do{
             do{
-                conta.setEmail(EntradaSaida.inserirEmail());
-                String vetorEmails[]= {"@gmail.com", "@outlook.com", "@yahoo.com", "@icloud.com", "@hotmail.com"};
+                novo_email = EntradaSaida.inserirEmail();
+                tamanhoEmail = novo_email.length();
+                posicaoPontoCom = novo_email.indexOf(".com");
 
-                for(int i=0; i<5;i++){
-                    emailValido = conta.getEmail().indexOf(vetorEmails[i]);
-                    if(emailValido!=-1){
-                        testeEmail = conta.getEmail().replaceAll(" ","#@#ERRO#@#");
-                        verificaEmail = testeEmail.indexOf("#@#ERRO#@#");
-                        break;
+                if(tamanhoEmail - 1 > (posicaoPontoCom + 3) || posicaoPontoCom == -1){
+                    EntradaSaida.escreverMensagem("Email inválido!");
+                }else{conta.setEmail(novo_email);
+
+                    String vetorEmails[]= {"@gmail.com", "@outlook.com", "@yahoo.com", "@icloud.com", "@hotmail.com"};
+
+                    for(int i=0; i<5;i++){
+                        
+                        emailValido = conta.getEmail().indexOf(vetorEmails[i]);
+                        if(emailValido!=-1){
+                            testeEmail = conta.getEmail().replaceAll(" ","#@#ERRO#@#");
+                            verificaEmail = testeEmail.indexOf("#@#ERRO#@#");
+                            break;
+                        }
                     }
-                }
-                if(emailValido == -1 || verificaEmail != -1 ){
-                    EntradaSaida.escreverMensagem("\nEMAIL INVÁLIDO\n");
+                    if(emailValido == -1 || verificaEmail != -1 ){
+                        EntradaSaida.escreverMensagem("\nEMAIL INVÁLIDO\n");
+                    }
                 }
             }while(emailValido == -1 || verificaEmail != -1);
             
@@ -77,12 +104,30 @@ public class BancoDados {
 
         do{
             conta.setNomeUsuario(EntradaSaida.inserirDadosCadastrais("Digite o nome de usuário"));
-            validacao=validarNomeUsuario(conta.getNomeUsuario());
-            Validacao.validarDadosUsuario(validacao, "Usuário já existente.");
-        }while(validacao==true);
+
+            int tamanhoNomeUsuario = conta.getNomeUsuario().length();
+            if(tamanhoNomeUsuario < 2 || tamanhoNomeUsuario > 64){
+                EntradaSaida.escreverMensagem("Número de letras insuficiente!");
+                validacao = true;
+            }else{
+                validacao=validarNomeUsuario(conta.getNomeUsuario());
+                Validacao.validarDadosUsuario(validacao, "Usuário já existente.");
+            }
+        }while(validacao==true); //ESTÁ REPETINDO MESMO NÃO PODENDO
         usuarioAtual=conta.getNomeUsuario();
 
-        conta.setDataNascimento(EntradaSaida.inserirDadosCadastrais("data de nascimento"));
+        String dataNascimento = EntradaSaida.inserirDadosCadastrais("data de nascimento");
+        if(Validacao.StringEhNumero(dataNascimento)){
+            int diaNascimento = Integer.parseInt(dataNascimento.substring(0, 2));
+            int mesNascimento = Integer.parseInt(dataNascimento.substring(2, 4));
+            int anoNascimento = Integer.parseInt(dataNascimento.substring(4, 8));
+
+            if(diaNascimento > c.get(Calendar.DAY_OF_MONTH) && anoNascimento > c.get(Calendar.YEAR)){EntradaSaida.escreverMensagem("Data inválida!");}
+            conta.setDataNascimento(dataNascimento);
+
+        }
+        
+
         conta.setEndereco(EntradaSaida.inserirDadosCadastrais("Endereço"));
         
         validacao=false;
@@ -112,15 +157,6 @@ public class BancoDados {
         return usuarioAtual;
     }
 
-    public String retornarArraylist(){ //ver se precisa
-        String retorno="";
-        for (Conta c: this.listaContas) {
-                retorno+="Nome de Usuário: "+c.getNomeUsuario()+"\nNome Completo: "+c.getNomeCompleto()+"\nCPF: "+Validacao.formartCpf(c.getCpf())+"\nData de Nascimento: "+c.getDataNascimento()+
-                "\nCEP: "+c.getCep()+"\nEndereço: "+c.getEndereco()+"\nE-mail: "+c.getEmail()+"\nTelefone: "+c.getNumeroTelefone()+"\n\n";
-        }
-        return retorno;
-    }
-
     public boolean validarNomeUsuario(String dadoUsuario){  //troca nome - validarDadosCadastrais
         boolean verificador = false;
         for (Conta cTemp : this.listaContas) {
@@ -145,6 +181,16 @@ public class BancoDados {
         return verificador;
     }
 
+    public String retornarNomeUsuario(String nomeEmailCpf){
+        String retorno="";
+        for (Conta conta: this.listaContas) {
+            if(conta.getNomeUsuario().equals(nomeEmailCpf) || (conta.getEmail().equals(nomeEmailCpf)) || (conta.getCpf().equals(nomeEmailCpf))){
+                retorno=conta.getNomeUsuario();
+            }
+        }
+        return retorno;
+    }
+
     public String visualizarPerfilUsusario(String usuarioAtual){
         String retorno="";
         for (Conta c: this.listaContas) {
@@ -164,6 +210,14 @@ public class BancoDados {
         this.listaCampanhas.add(cd);
     }
 
+    public void deletarCampanha(String usuarioAtual){
+        for (CentroDistribuicao centroDistribuicao : this.listaCampanhas) {
+            if(usuarioAtual.equals(centroDistribuicao.getAdminCampanha())){
+                this.listaCampanhas.remove(centroDistribuicao);
+            }
+        }
+    }
+
 	public boolean verificarExistenciaCampanha(String nomeCampanha) {
         boolean verificaExistenciaCampanha=false;
 		for (CentroDistribuicao cd : this.listaCampanhas) {
@@ -174,18 +228,58 @@ public class BancoDados {
         return verificaExistenciaCampanha;
 	}
 
-    public String concatenarDadosCampanha(){
-        //concatenar dados da campanha e suas arrecadações
-        return null;
+    public String concatenarDadosCampanha(String usuarioAtual){
+        String retorno="";
+        for (CentroDistribuicao centroDistribuicao: this.listaCampanhas) {
+            if(usuarioAtual.equals(centroDistribuicao.getAdminCampanha())){
+                retorno+="Nome da campanha: "+centroDistribuicao.getNomeCampanha()+"\nCategoria: "+centroDistribuicao.getCategoria()+"\nLocal: "+centroDistribuicao.getLocalDistribuicao()+
+                "\nDescrição: "+centroDistribuicao.getDescricaoCampanha()+"\nProdutos arrecadados: "+centroDistribuicao.getProdutosArrecadados();
+            }
+        }
+        return retorno;
     }
 
-    // public String visualizarCampanhas(){
-    //     String lista="CAMPANHAS DISPONÍVEIS:\n\n";
-    //     for (CentroDistribuicao cd:this.listaCampanhas) {
-    //         lista+=cd.getNomeCampanha()+"\nAdministrador: "+cd.getLiderOrganizacao()+"\nCentro de Distribuição: "+cd.getLocalDistribuicao()+"\nDescrição: "+cd.getDescricaoCampanha()+"\n";
-    //     }
-    //     return lista;
-    // } //arrumar 
+    public void salvarProdutosArrecadadosNaCampanha(String campanhaSelecionada, String produtosArrecadados){
+        for (CentroDistribuicao cd:listaCampanhas){
+            if(campanhaSelecionada.equals(cd.getNomeCampanha())){
+                cd.setProdutosArrecadados(produtosArrecadados);
+            }
+        }
+    }
+
+    public String visualizarCampanhas(){
+        String lista="CAMPANHAS DISPONÍVEIS:\n\n";
+        int i=0;
+        for (CentroDistribuicao cd:this.listaCampanhas) {
+            lista+="Campanha "+(i++)+": "+cd.getNomeCampanha()+"\nCategoria: "+cd.getCategoria()+"\nDescrição: "+cd.getDescricaoCampanha()+"\n";
+        }
+        return lista;
+    } 
+
+    public boolean verificarExistenciaDeUmaCampanhaPorUsuario(String usuarioAtual){
+        for (CentroDistribuicao centroDistribuicao : this.listaCampanhas) {
+            if(usuarioAtual.equals(centroDistribuicao.getAdminCampanha())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void editarDescricaoCampanha(String usuarioAtual){
+        for (CentroDistribuicao centroDistribuicao : this.listaCampanhas) {
+            if(usuarioAtual.equals(centroDistribuicao.getAdminCampanha())){
+                centroDistribuicao.setDescricaoCampanha(EntradaSaida.inserirDadosCadastrais("Digite a nova descrição: "));
+            }
+        }
+    }
+
+    public void editarLocalCampanha(String usuarioAtual){
+        for (CentroDistribuicao centroDistribuicao : this.listaCampanhas) {
+            if(usuarioAtual.equals(centroDistribuicao.getAdminCampanha())){
+                centroDistribuicao.setLocalDistribuicao(EntradaSaida.inserirDadosCadastrais("Digite o novo endereço: "));
+            }
+        }
+    }
     
     //====================Dados De Produtos Doados====================//
     ArrayList<ProdutoDoacao> listaDoacoes=new ArrayList<ProdutoDoacao>();
@@ -197,12 +291,15 @@ public class BancoDados {
 
         for (ProdutoDoacao pd:this.listaDoacoes) {
             if(pd.getDestinoDoacao().equals(destinoDoacao)){
-                retorno+="Nome produto: "+pd.getNome()+"\nCategoria: "+pd.getDescricao()+"\nDescrição: "+pd.getDescricao()+"\n\n";
+                retorno+="Produto "+(contador+1)+":\nNome produto: "+pd.getNome()+"\nCategoria: "+pd.getDescricao()+"\nDescrição: "+pd.getDescricao()+"\n\n";
             }else if(tamanhoLista==contador && !(pd.getDestinoDoacao().equals(destinoDoacao) && retorno=="")){
                 retorno+="Nenhum produto foi arrecadado no momento.";
             }   
-            contador+=1;
         }
         return retorno;
+    }
+
+    public void salvarProdutosDoados(ProdutoDoacao pD){
+        this.listaDoacoes.add(pD);
     }
 }

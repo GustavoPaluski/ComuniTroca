@@ -5,7 +5,14 @@ public class CentroDistribuicao {
     private String descricaoCampanha;
     private String categoria;
     private String produtosArrecadados;
+    private String adminCampanha;
 
+    public String getAdminCampanha() {
+        return adminCampanha;
+    }
+    public void setAdminCampanha(String adminCampanha) {
+        this.adminCampanha = adminCampanha;
+    }
     public CentroDistribuicao(String localDistribuicao, String nomeCampanha, String descricaoCampanha, String categoria,
             String produtosArrecadados) {
         this.localDistribuicao = localDistribuicao;

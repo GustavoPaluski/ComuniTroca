@@ -1,10 +1,5 @@
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.ResourceBundle.Control;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.text.MaskFormatter;
 
 public class Validacao {
     
@@ -85,6 +80,15 @@ public class Validacao {
             return formatNumericString(cpf, "###.###.###-##");
         } catch (ParseException e) {
             return null;
+        }
+    }
+
+    public static boolean StringEhNumero(String variavel){
+        try{
+            Integer.parseInt(variavel);
+            return true;
+        }catch(NumberFormatException e){
+            return false;
         }
     }
 }

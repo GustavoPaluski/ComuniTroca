@@ -104,26 +104,12 @@ public class EntradaSaida {
         }while(sair==false);
     }
 
-    
-    public static void mostrarNoticias(){
-        String[] noticia = new String[5];
-        Random rand = new Random();
-        int i=0;
+    public static void pressionarEnterParaContinuar(){
+        System.out.println("Pressione ENTER para continuar ...");
+        System.console().readLine();
+    }
 
-        noticia[0] = "Nova campanha do agasalho foi lanaçada, faça uma doação para ajudar os necessitados!";
-        noticia[1] = "Curitiba registra 15 casos de morte por hipotermia nesse imverno, ajude a não aumentar os casos, doe roupas quentes!";
-        noticia[2] = "JEC elabora jogo beneficiente para arrecadação de alimentos, para assistir a pertida é preciso doar apenas 1 Kg de alimento"+ 
-        "não perecessível!";
-        noticia[3] = "20 solicitações de trocas envolvendo PS5 na região de Joinville hoje";
-        noticia[4] = "30 trocas de peças de carro foram trocadas ontem no Comasa";
-
-        for(i=0; i<5; i++){
-            EntradaSaida.escreverMensagem("=====================================================================");
-            System.out.println(noticia[rand.nextInt(4)]);
-            EntradaSaida.escreverMensagem("=====================================================================");
-            System.out.println("Aperte 'ENTER' para ver a próxima notícia: ");
-            System.console().readLine();
-            EntradaSaida.clearScreen();
-        }
+    public static String retornarRespostaUsuario(){
+        return System.console().readLine();
     }
 }

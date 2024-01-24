@@ -3,6 +3,7 @@ public class Principal {
 
         BancoDados bd=new BancoDados();
         Conta c = new Conta("", "", "", "", "", "", "", "", "");
+        ProdutoDoacao pD=new ProdutoDoacao();
         bd.admin();
         do{
             int opcao=0, contador = 0;
@@ -51,7 +52,7 @@ public class Principal {
                                     
                             verificarAdmin=Validacao.verificarAdmin(nomeEmailCpf, senhaUsuario); 
 
-                            usuarioAtual=nomeEmailCpf;
+                            usuarioAtual=bd.retornarNomeUsuario(nomeEmailCpf);
                             break;
             
                         case 3:
@@ -71,23 +72,23 @@ public class Principal {
                         opcao = Validacao.validarEscolhaMenu(1, 7, opcao);
                         switch (opcao){
                             case 1:
-                                Doacao.visualizarMenuDoacao(usuarioAtual); //finalizar
+                                Doacao.visualizarMenuDoacao(usuarioAtual,bd,pD); 
                                 break;
                             
                             case 2:
                                 Troca.visualizarMenuTroca();
                                 break;
                 
-                            case 3: //adm att
-                                EntradaSaida.mostrarNoticias();
+                            case 3: 
+                                // EntradaSaida.mostrarNoticias(); - arrumar
                                 break;
                 
                             case 4: 
                                 EntradaSaida.mostarRespostasChat();
                                 break;
                 
-                            case 5: //possibilidade de alterar alguns dados
-                                EntradaSaida.escreverMensagem(bd.visualizarPerfilUsusario(usuarioAtual));
+                            case 5: 
+                                EntradaSaida.escreverMensagem(bd.visualizarPerfilUsusario(usuarioAtual)); 
                                 break;
 
                             case 6:
@@ -101,18 +102,22 @@ public class Principal {
                 }else{ //MENU PRINCIPAL ADMINISTRADOR:
                     do{
                         EntradaSaida.inserirNomeSite();
-                        opcao = EntradaSaida.escolherOpcao("[1] - Remover Usuário\n[2] - Remover Publicação\n[3] - Deslogar-se\n[4] - Sair"); //possibilidade de modificar as notícias
+                        opcao = EntradaSaida.escolherOpcao("[1] - Remover Usuário\n[2] - Acessar Notícias\n[3] - Deslogar-se\n[4] - Sair"); //possibilidade de modificar as notícias
                         opcao = Validacao.validarEscolhaMenu(1, 4, opcao);
                         switch(opcao){
-                            case 1: //remover ususarios e suas publicacoes - conferir se esta pronto
+                            case 1: 
                                 int tamanho = bd.listaContas.size();
                                 EntradaSaida.escreverMensagem("TAMANHO DA LISTA DE CONTAS: "+tamanho);
                                 String nomeUsuario = EntradaSaida.inserirDadosCadastrais("Digite o nome de usuário que deseja excluir");
-                                c.removerUsuarioAdmin(nomeUsuario,bd);
+                                boolean usuarioExistente=c.removerUsuarioAdmin(nomeUsuario,bd);
+
+                                if (usuarioExistente==true){
+                                    bd.deletarCampanha(nomeUsuario);
+                                }
                                 break;
 
-                            case 2: //remover publicacoes2
-                                EntradaSaida.escreverMensagem(bd.retornarArraylist()); // visualizacao de array temporária
+                            case 2: //visualizar,adicionar, editar e excluir noticia
+
                                 break;
 
                             case 3:

@@ -140,30 +140,31 @@ public class Conta {
         }else{EntradaSaida.escreverMensagem("ID não encontrado!!!");}
     }
 
-    public void removerUsuarioAdmin(String nomeUsuario,BancoDados bd){
-        boolean validacao = false;
+    public boolean removerUsuarioAdmin(String nomeUsuario,BancoDados bd){
+        boolean usuarioExistente = false;
         int posicao = 0;
 
         for (ProdutoTroca pt : this.listaTroca) { //verificar se está funcional 
             if(pt.getDono().getNomeUsuario().equals(nomeUsuario)){
-                validacao = true;
+                usuarioExistente = true;
                 posicao=listaTroca.indexOf(pt);
             }
         }
-        if(validacao){
+        if(usuarioExistente){
             listaTroca.remove(posicao);
         }
 
         posicao=0;
-        validacao = false;   
+        usuarioExistente = false;   
         for (Conta c : bd.listaContas) { 
             if(c.getNomeUsuario().equals(nomeUsuario)){
-                validacao=true;
+                usuarioExistente=true;
                 posicao=bd.listaContas.indexOf(c);
             }
         }
-        if(validacao){
+        if(usuarioExistente){
             bd.listaContas.remove(posicao);
         }else{EntradaSaida.escreverMensagem("Nenhum usúario encontrado");}
+        return usuarioExistente;
     }
 }
