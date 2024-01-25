@@ -144,7 +144,7 @@ public class Conta {
         boolean usuarioExistente = false;
         int posicao = 0;
 
-        for (ProdutoTroca pt : this.listaTroca) { //verificar se está funcional 
+        for (ProdutoTroca pt : this.listaTroca) { 
             if(pt.getDono().getNomeUsuario().equals(nomeUsuario)){
                 usuarioExistente = true;
                 posicao=listaTroca.indexOf(pt);

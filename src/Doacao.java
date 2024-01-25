@@ -41,6 +41,7 @@ public class Doacao {
                             bd.salvarProdutosArrecadadosNaCampanha(pD.getDestinoDoacao(), bd.concatenarProdutosArrecadados(pD.getDestinoDoacao()));
                         }else{
                             EntradaSaida.escreverMensagem("A opção digitada não corresponde as informadas!");
+                            EntradaSaida.pressionarEnterParaContinuar();
                         }
                     }
                     break;
@@ -75,33 +76,34 @@ public class Doacao {
                     EntradaSaida.inserirNomeSite();
                     
                     EntradaSaida.escreverMensagem(bd.concatenarDadosCampanha(usuarioAtual));
+                    if(bd.verificarExistenciaDeUmaCampanhaPorUsuario(usuarioAtual)==true){
+                        int opcaoPerfilCampanha=EntradaSaida.escolherOpcao("[1] - Editar Campanha\n[2] - Excluir Campanha\n[3] - Voltar");
+                        switch (opcaoPerfilCampanha) {
+                            case 1:
+                                EntradaSaida.escreverMensagem("Digite qual atributo você deseja alterar: (Descrição / Endereço)");
+                                String retorno=EntradaSaida.retornarRespostaUsuario().toUpperCase();
 
-                    int opcaoPerfilCampanha=EntradaSaida.escolherOpcao("[1] - Editar Campanha\n[2] - Excluir Campanha\n[3] - Voltar");
-                    switch (opcaoPerfilCampanha) {
-                        case 1:
-                            EntradaSaida.escreverMensagem("Digite qual atributo você deseja alterar: (Descrição / Endereço)");
-                            String retorno=EntradaSaida.retornarRespostaUsuario().toUpperCase();
+                                if(retorno.equals("DESCRICAO")||retorno.equals("DESCRIÇÃO")){
+                                    bd.editarDescricaoCampanha(usuarioAtual);
+                                    EntradaSaida.escreverMensagem("Descrição alterada com sucesso!");
+                                    EntradaSaida.pressionarEnterParaContinuar();
+                                }else if(retorno.equals("ENDEREÇO")||retorno.equals("ENDERECO")){
+                                    bd.editarLocalCampanha(usuarioAtual);
+                                    EntradaSaida.escreverMensagem("Endereço alterado com sucesso!");
+                                    EntradaSaida.pressionarEnterParaContinuar();
+                                }else{
+                                    EntradaSaida.escreverMensagem("Opção informada inválida!");
+                                }
+                                break;
+                        
+                            case 2:
+                                bd.deletarCampanha(usuarioAtual);
+                                break;
 
-                            if(retorno.equals("DESCRICAO")||retorno.equals("DESCRIÇÃO")){
-                                bd.editarDescricaoCampanha(usuarioAtual);
-                                EntradaSaida.escreverMensagem("Descrição alterada com sucesso!");
-                                EntradaSaida.pressionarEnterParaContinuar();
-                            }else if(retorno.equals("ENDEREÇO")||retorno.equals("ENDERECO")){
-                                bd.editarLocalCampanha(usuarioAtual);
-                                EntradaSaida.escreverMensagem("Endereço alterado com sucesso!");
-                                EntradaSaida.pressionarEnterParaContinuar();
-                            }else{
-                                EntradaSaida.escreverMensagem("Opção informada inválida!");
-                            }
-                            break;
-                    
-                        case 2:
-                            bd.deletarCampanha(usuarioAtual);
-                            break;
-
-                        case 3:
-                            break;
-                    }
+                            case 3:
+                                break;
+                        }
+                    }else{EntradaSaida.escreverMensagem("Você não possui nenhuma campanha!");EntradaSaida.pressionarEnterParaContinuar();}
                     break;
 
                 case 4:

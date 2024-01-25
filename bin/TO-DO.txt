@@ -6,22 +6,19 @@ Conferir se os dados estão salvando
 String testeTela="";//temporário
 
 validar caracteres especiais no nome 
-Validar data
 Digitar senha duas vezes para validá-la
 
-- FAZER REMOÇÃO DE PUBLICAÇÃO
-- Finalizar doação
 - ARRUMAR OS LIMPATELAS (ESTÁ FALTANDO EM ALGUMAS PARTES DO CÓDIGO)
 - DEIXAR O LAYOUT MAIS BONITO
 - FINALIZAR VALIDAÇÕES
-
-adm att as notícias 
-possibilidade de alterar dados no case 5 - perfil
+ 
 melhorar as respostas automáticas
-//colocar temporizador para migrar de tela e aparecer a msgm onde tiver "PRECIONE ENTER PARA CONTINUAR"
 //REFAZER O TÍTULO DO PROGRAMA
 CENTRALIZAR PROGRAMA
-verificar se a campanha está linkada com o user
 modificar nomes de variaveis caso possivel
 validar opções menu
-testar doacao
+
+inserir msg para confirmar a exclusao de conta
+
+isEmpty quando a lista estiver vazia
+

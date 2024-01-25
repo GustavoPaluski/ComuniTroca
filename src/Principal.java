@@ -4,6 +4,7 @@ public class Principal {
         BancoDados bd=new BancoDados();
         Conta c = new Conta("", "", "", "", "", "", "", "", "");
         ProdutoDoacao pD=new ProdutoDoacao();
+        Noticias noticias=new Noticias("","","");
         bd.admin();
         do{
             int opcao=0, contador = 0;
@@ -59,7 +60,7 @@ public class Principal {
                             System.exit(0);
                             break;
                         }
-                }catch (NumberFormatException nfe) {EntradaSaida.escreverMensagem("Opção inválida!");}
+                }catch (NumberFormatException exception) {EntradaSaida.escreverMensagem("Opção inválida!");}
 
             }while(opcao!=1 && opcao!=2);
 
@@ -67,66 +68,70 @@ public class Principal {
                 opcao=0;
                 if(verificarAdmin==false){ //MENU PRINCIPAL:
                     do{
-                        EntradaSaida.inserirNomeSite();
-                        opcao = EntradaSaida.escolherOpcao("[1] - Doações\n[2] - Trocas\n[3] - Notícias\n[4] - Chat\n[5] - Perfil\n[6] - Deslogar-se\n[7] - Sair");
-                        opcao = Validacao.validarEscolhaMenu(1, 7, opcao);
-                        switch (opcao){
-                            case 1:
-                                Doacao.visualizarMenuDoacao(usuarioAtual,bd,pD); 
-                                break;
-                            
-                            case 2:
-                                Troca.visualizarMenuTroca();
-                                break;
-                
-                            case 3: 
-                                // EntradaSaida.mostrarNoticias(); - arrumar
-                                break;
-                
-                            case 4: 
-                                EntradaSaida.mostarRespostasChat();
-                                break;
-                
-                            case 5: 
-                                EntradaSaida.escreverMensagem(bd.visualizarPerfilUsusario(usuarioAtual)); 
-                                break;
+                        try{
+                            EntradaSaida.inserirNomeSite();
+                            opcao = EntradaSaida.escolherOpcao("[1] - Doações\n[2] - Trocas\n[3] - Notícias\n[4] - Chat\n[5] - Perfil\n[6] - Deslogar-se\n[7] - Sair");
+                            opcao = Validacao.validarEscolhaMenu(1, 7, opcao);
+                            switch (opcao){
+                                case 1:
+                                    Doacao.visualizarMenuDoacao(usuarioAtual,bd,pD); 
+                                    break;
+                                
+                                case 2:
+                                    Troca.visualizarMenuTroca();
+                                    break;
+                    
+                                case 3: 
+                                    EntradaSaida.escreverMensagem(noticias.retornarTodasNoticias());
+                                    EntradaSaida.pressionarEnterParaContinuar();
+                                    break;
+                    
+                                case 4: 
+                                    EntradaSaida.mostarRespostasChat();
+                                    break;
+                    
+                                case 5: 
+                                    EntradaSaida.escreverMensagem(bd.visualizarPerfilUsusario(usuarioAtual)); 
+                                    EntradaSaida.pressionarEnterParaContinuar();
+                                    break;
 
-                            case 6:
-                                break;
-                
-                            case 7:
-                                System.exit(0);
-                                break;
-                        }
+                                case 6:
+                                    break;
+                    
+                                case 7:
+                                    System.exit(0);
+                                    break;
+                            }
+                        }catch(NumberFormatException exception){EntradaSaida.escreverMensagem("Apenas números permitidos!");}
                     }while(opcao!=6);
                 }else{ //MENU PRINCIPAL ADMINISTRADOR:
                     do{
-                        EntradaSaida.inserirNomeSite();
-                        opcao = EntradaSaida.escolherOpcao("[1] - Remover Usuário\n[2] - Acessar Notícias\n[3] - Deslogar-se\n[4] - Sair"); //possibilidade de modificar as notícias
-                        opcao = Validacao.validarEscolhaMenu(1, 4, opcao);
-                        switch(opcao){
-                            case 1: 
-                                int tamanho = bd.listaContas.size();
-                                EntradaSaida.escreverMensagem("TAMANHO DA LISTA DE CONTAS: "+tamanho);
-                                String nomeUsuario = EntradaSaida.inserirDadosCadastrais("Digite o nome de usuário que deseja excluir");
-                                boolean usuarioExistente=c.removerUsuarioAdmin(nomeUsuario,bd);
+                        try{
+                            EntradaSaida.inserirNomeSite();
+                            opcao = EntradaSaida.escolherOpcao("[1] - Remover Usuário\n[2] - Acessar Notícias\n[3] - Deslogar-se\n[4] - Sair"); //possibilidade de modificar as notícias
+                            opcao = Validacao.validarEscolhaMenu(1, 4, opcao);
+                            switch(opcao){
+                                case 1: 
+                                    String nomeUsuario = EntradaSaida.inserirDadosCadastrais("Digite o nome de usuário que deseja excluir");
+                                    boolean usuarioExistente=c.removerUsuarioAdmin(nomeUsuario,bd);
 
-                                if (usuarioExistente==true){
-                                    bd.deletarCampanha(nomeUsuario);
-                                }
-                                break;
+                                    if (usuarioExistente==true){
+                                        bd.deletarCampanha(nomeUsuario);
+                                    }
+                                    break;
 
-                            case 2: //visualizar,adicionar, editar e excluir noticia
+                                case 2: 
+                                    noticias.abrirMenuNoticia(noticias);
+                                    break;
 
-                                break;
+                                case 3:
+                                    break;
 
-                            case 3:
-                                break;
-
-                            case 4:
-                                System.exit(0);
-                                break;
-                        }
+                                case 4:
+                                    System.exit(0);
+                                    break;
+                            }
+                        }catch(NumberFormatException exception){EntradaSaida.escreverMensagem("Apenas números permitidos!");}
                     }while(opcao!=3);
                 }
             }

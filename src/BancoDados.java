@@ -1,8 +1,6 @@
 import java.util.Calendar;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.StringJoiner;
 
 public class BancoDados {
     
@@ -44,19 +42,19 @@ public class BancoDados {
         Conta conta = new Conta("", "", "", "", "", "", "", "", "");
 
         do{
-            nomeCompleto = EntradaSaida.inserirDadosCadastrais("Nome completo");
+           nomeCompleto = EntradaSaida.inserirDadosCadastrais("\nNome completo");
             tamanhoNomeCompleto = nomeCompleto.length();
-            if(tamanhoNomeCompleto < 2 || tamanhoNomeCompleto > 64){
+            if(tamanhoNomeCompleto < 3 || tamanhoNomeCompleto > 64){
                 EntradaSaida.escreverMensagem("Número de letras insuficiente!");
             }else{conta.setNomeCompleto(nomeCompleto);}
-        }while(tamanhoNomeCompleto < 2 || tamanhoNomeCompleto > 64);
+        }while(tamanhoNomeCompleto < 3 || tamanhoNomeCompleto > 64);
         
         boolean validacao=false;
         boolean validaCaractere=false;
         int quantidadeNumerosDaString = 0;
         do{
             do{
-                conta.setCpf(EntradaSaida.inserirDadosCadastrais("CPF"));
+                conta.setCpf(EntradaSaida.inserirDadosCadastrais("\nCPF"));
                 quantidadeNumerosDaString = conta.getCpf().length();
                 validaCaractere = conta.getCpf().matches("-?\\d+");
                 if(quantidadeNumerosDaString != 11 || validaCaractere==false){EntradaSaida.escreverMensagem("\nCPF Inválido, tente novamente\n");}else {validacao=true;}
@@ -73,6 +71,7 @@ public class BancoDados {
         String novo_email = "";
         do{
             do{
+                EntradaSaida.escreverMensagem("\n");
                 novo_email = EntradaSaida.inserirEmail();
                 tamanhoEmail = novo_email.length();
                 posicaoPontoCom = novo_email.indexOf(".com");
@@ -103,38 +102,48 @@ public class BancoDados {
         }while(validacao==true);
 
         do{
-            conta.setNomeUsuario(EntradaSaida.inserirDadosCadastrais("Digite o nome de usuário"));
+            conta.setNomeUsuario(EntradaSaida.inserirDadosCadastrais("\nDigite o nome de usuário"));
 
             int tamanhoNomeUsuario = conta.getNomeUsuario().length();
-            if(tamanhoNomeUsuario < 2 || tamanhoNomeUsuario > 64){
+            if(tamanhoNomeUsuario < 3 || tamanhoNomeUsuario > 64){
                 EntradaSaida.escreverMensagem("Número de letras insuficiente!");
                 validacao = true;
             }else{
                 validacao=validarNomeUsuario(conta.getNomeUsuario());
                 Validacao.validarDadosUsuario(validacao, "Usuário já existente.");
             }
-        }while(validacao==true); //ESTÁ REPETINDO MESMO NÃO PODENDO
+        }while(validacao==true);
         usuarioAtual=conta.getNomeUsuario();
 
-        String dataNascimento = EntradaSaida.inserirDadosCadastrais("data de nascimento");
-        if(Validacao.StringEhNumero(dataNascimento)){
-            int diaNascimento = Integer.parseInt(dataNascimento.substring(0, 2));
-            int mesNascimento = Integer.parseInt(dataNascimento.substring(2, 4));
-            int anoNascimento = Integer.parseInt(dataNascimento.substring(4, 8));
+        boolean dataValida=false;
+        do{
+            try{
+                String dataNascimento = EntradaSaida.inserirDadosCadastrais("\ndata de nascimento");
+                if(dataNascimento.length()==8 && Validacao.StringEhNumero(dataNascimento)){
+                    if(Integer.parseInt(dataNascimento.substring(0,2))>= 1 && Integer.parseInt(dataNascimento.substring(0,2))<=30){
+                        if(Integer.parseInt(dataNascimento.substring(2,4))>=1 && Integer.parseInt(dataNascimento.substring(2,4))<=12){
+                            if(Integer.parseInt(dataNascimento.substring(4,8))>=1904 && Integer.parseInt(dataNascimento.substring(4,8))<=c.get(Calendar.YEAR)){
+                                conta.setDataNascimento(dataNascimento);
+                                dataValida=true;
+                            }
+                        }
+                    }    
+                }
+                if(dataValida==false){
+                    EntradaSaida.escreverMensagem("Data inválida!");
+                }
+            }catch(java.lang.StringIndexOutOfBoundsException e){
+                EntradaSaida.escreverMensagem("Opção inválida!");
+            }
+        }while(dataValida==false); 
 
-            if(diaNascimento > c.get(Calendar.DAY_OF_MONTH) && anoNascimento > c.get(Calendar.YEAR)){EntradaSaida.escreverMensagem("Data inválida!");}
-            conta.setDataNascimento(dataNascimento);
-
-        }
-        
-
-        conta.setEndereco(EntradaSaida.inserirDadosCadastrais("Endereço"));
+        conta.setEndereco(EntradaSaida.inserirDadosCadastrais("\nEndereço"));
         
         validacao=false;
         quantidadeNumerosDaString=0;
         validaCaractere=false;
         do{
-            conta.setCep(EntradaSaida.inserirDadosCadastrais("CEP"));
+            conta.setCep(EntradaSaida.inserirDadosCadastrais("\nCEP"));
             quantidadeNumerosDaString=conta.getCep().length();
             validaCaractere=conta.getCep().matches("-?\\d+");
             if(quantidadeNumerosDaString != 8 || validaCaractere==false){EntradaSaida.escreverMensagem("CEP inválido, tente novamente:");}else{validacao=true;}
@@ -144,7 +153,7 @@ public class BancoDados {
         quantidadeNumerosDaString=0;
         validaCaractere=false;
         do{
-            conta.setNumeroTelefone(EntradaSaida.inserirDadosCadastrais("Telefone"));
+            conta.setNumeroTelefone(EntradaSaida.inserirDadosCadastrais("\nTelefone"));
             quantidadeNumerosDaString=conta.getNumeroTelefone().length();
             validaCaractere=conta.getNumeroTelefone().matches("-?\\d+");
             if(quantidadeNumerosDaString != 11 || validaCaractere==false){
@@ -157,7 +166,7 @@ public class BancoDados {
         return usuarioAtual;
     }
 
-    public boolean validarNomeUsuario(String dadoUsuario){  //troca nome - validarDadosCadastrais
+    public boolean validarNomeUsuario(String dadoUsuario){
         boolean verificador = false;
         for (Conta cTemp : this.listaContas) {
            if(cTemp.getNomeUsuario().equals(dadoUsuario) || (cTemp.getEmail().equals(dadoUsuario)) || (cTemp.getCpf().equals(dadoUsuario))){
@@ -211,11 +220,13 @@ public class BancoDados {
     }
 
     public void deletarCampanha(String usuarioAtual){
+        int posicaoObjeto=0;
         for (CentroDistribuicao centroDistribuicao : this.listaCampanhas) {
             if(usuarioAtual.equals(centroDistribuicao.getAdminCampanha())){
-                this.listaCampanhas.remove(centroDistribuicao);
+                posicaoObjeto=listaCampanhas.indexOf(centroDistribuicao);
             }
         }
+        this.listaCampanhas.remove(posicaoObjeto);
     }
 
 	public boolean verificarExistenciaCampanha(String nomeCampanha) {

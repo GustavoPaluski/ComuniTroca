@@ -53,16 +53,20 @@ public class EntradaSaida {
             switch (opcaoCategoria) {
                 case 1:
                     retorno="Roupas";
-            
+                    break;
+                    
                 case 2:
                     retorno="Móveis";
+                    break;
 
                 case 3:
                     retorno="Alimentos";
+                    break;
 
                 case 4:
                     retorno="Brinquedos";
-
+                    break;
+                    
                 default:
                     System.err.println("Opção inválida, selecione outra.");
             }
