@@ -6,7 +6,7 @@ Local: Joinville/SC
 
 IDE utilizada: Visual Studio Code
 
-Linguagem: Java
+Linguagem: Java    |    Versão: 8
 
 Criadores: Gustavo Paluski e Ruan Carlos
 
