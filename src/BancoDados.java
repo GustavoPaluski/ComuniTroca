@@ -42,24 +42,36 @@ public class BancoDados {
         Conta conta = new Conta("", "", "", "", "", "", "", "", "");
 
         do{
-           nomeCompleto = EntradaSaida.inserirDadosCadastrais("\nNome completo");
+           nomeCompleto = EntradaSaida.inserirDadosCadastrais("\nNome completo:");
             tamanhoNomeCompleto = nomeCompleto.length();
             if(tamanhoNomeCompleto < 3 || tamanhoNomeCompleto > 64){
-                EntradaSaida.escreverMensagem("Número de letras insuficiente!");
+                EntradaSaida.clearScreen();
+                EntradaSaida.inserirNomeSite();
+                EntradaSaida.escreverMensagem("\n\nNúmero de letras insuficiente!");
             }else{conta.setNomeCompleto(nomeCompleto);}
         }while(tamanhoNomeCompleto < 3 || tamanhoNomeCompleto > 64);
         
         boolean validacao=false;
         boolean validaCaractere=false;
         int quantidadeNumerosDaString = 0;
+        EntradaSaida.clearScreen();
+        EntradaSaida.inserirNomeSite();
         do{
             do{
-                conta.setCpf(EntradaSaida.inserirDadosCadastrais("\nCPF"));
+                conta.setCpf(EntradaSaida.inserirDadosCadastrais("\nCPF:"));
                 quantidadeNumerosDaString = conta.getCpf().length();
                 validaCaractere = conta.getCpf().matches("-?\\d+");
-                if(quantidadeNumerosDaString != 11 || validaCaractere==false){EntradaSaida.escreverMensagem("\nCPF Inválido, tente novamente\n");}else {validacao=true;}
+                if(quantidadeNumerosDaString != 11 || validaCaractere==false){
+                    EntradaSaida.clearScreen();
+                    EntradaSaida.inserirNomeSite();
+                    EntradaSaida.escreverMensagem("\nCPF Inválido, tente novamente\n");
+                }else {
+                    validacao=true;
+                }
             }while(validacao==false);
             validacao=validarNomeUsuario(conta.getCpf());
+            EntradaSaida.clearScreen();
+            EntradaSaida.inserirNomeSite();
             Validacao.validarDadosUsuario(validacao, "CPF já cadastrado.");
         }while(validacao==true);
         
@@ -69,6 +81,8 @@ public class BancoDados {
         int posicaoPontoCom = 0;
         String testeEmail = "";
         String novo_email = "";
+        EntradaSaida.clearScreen();
+        EntradaSaida.inserirNomeSite();
         do{
             do{
                 EntradaSaida.escreverMensagem("\n");
@@ -77,6 +91,8 @@ public class BancoDados {
                 posicaoPontoCom = novo_email.indexOf(".com");
 
                 if(tamanhoEmail - 1 > (posicaoPontoCom + 3) || posicaoPontoCom == -1){
+                    EntradaSaida.clearScreen();
+                    EntradaSaida.inserirNomeSite();
                     EntradaSaida.escreverMensagem("Email inválido!");
                 }else{conta.setEmail(novo_email);
 
@@ -92,29 +108,41 @@ public class BancoDados {
                         }
                     }
                     if(emailValido == -1 || verificaEmail != -1 ){
-                        EntradaSaida.escreverMensagem("\nEMAIL INVÁLIDO\n");
+                        EntradaSaida.clearScreen();
+                        EntradaSaida.inserirNomeSite();
+                        EntradaSaida.escreverMensagem("\nEMAIL INVÁLIDO!\n");
                     }
                 }
             }while(emailValido == -1 || verificaEmail != -1);
             
             validacao=validarNomeUsuario(conta.getEmail());
+            EntradaSaida.clearScreen();
+            EntradaSaida.inserirNomeSite();
             Validacao.validarDadosUsuario(validacao, "E-mail já cadastrado.");
         }while(validacao==true);
 
+        EntradaSaida.clearScreen();
+        EntradaSaida.inserirNomeSite();
         do{
             conta.setNomeUsuario(EntradaSaida.inserirDadosCadastrais("\nDigite o nome de usuário"));
 
             int tamanhoNomeUsuario = conta.getNomeUsuario().length();
             if(tamanhoNomeUsuario < 3 || tamanhoNomeUsuario > 64){
+                EntradaSaida.clearScreen();
+                EntradaSaida.inserirNomeSite();
                 EntradaSaida.escreverMensagem("Número de letras insuficiente!");
                 validacao = true;
             }else{
                 validacao=validarNomeUsuario(conta.getNomeUsuario());
+                EntradaSaida.clearScreen();
+                EntradaSaida.inserirNomeSite();
                 Validacao.validarDadosUsuario(validacao, "Usuário já existente.");
             }
         }while(validacao==true);
         usuarioAtual=conta.getNomeUsuario();
 
+        EntradaSaida.clearScreen();
+        EntradaSaida.inserirNomeSite();
         boolean dataValida=false;
         do{
             try{
@@ -130,15 +158,23 @@ public class BancoDados {
                     }    
                 }
                 if(dataValida==false){
+                    EntradaSaida.clearScreen();
+                    EntradaSaida.inserirNomeSite();
                     EntradaSaida.escreverMensagem("Data inválida!");
                 }
             }catch(java.lang.StringIndexOutOfBoundsException e){
+                EntradaSaida.clearScreen();
+                EntradaSaida.inserirNomeSite();
                 EntradaSaida.escreverMensagem("Opção inválida!");
             }
         }while(dataValida==false); 
 
+        EntradaSaida.clearScreen();
+        EntradaSaida.inserirNomeSite();
         conta.setEndereco(EntradaSaida.inserirDadosCadastrais("\nEndereço"));
         
+        EntradaSaida.clearScreen();
+        EntradaSaida.inserirNomeSite();
         validacao=false;
         quantidadeNumerosDaString=0;
         validaCaractere=false;
@@ -146,9 +182,11 @@ public class BancoDados {
             conta.setCep(EntradaSaida.inserirDadosCadastrais("\nCEP"));
             quantidadeNumerosDaString=conta.getCep().length();
             validaCaractere=conta.getCep().matches("-?\\d+");
-            if(quantidadeNumerosDaString != 8 || validaCaractere==false){EntradaSaida.escreverMensagem("CEP inválido, tente novamente:");}else{validacao=true;}
+            if(quantidadeNumerosDaString != 8 || validaCaractere==false){EntradaSaida.clearScreen();EntradaSaida.inserirNomeSite();EntradaSaida.escreverMensagem("CEP inválido, tente novamente:");}else{validacao=true;}
         }while(validacao==false);
 
+        EntradaSaida.clearScreen();
+        EntradaSaida.inserirNomeSite();
         validacao=false;
         quantidadeNumerosDaString=0;
         validaCaractere=false;
@@ -157,10 +195,12 @@ public class BancoDados {
             quantidadeNumerosDaString=conta.getNumeroTelefone().length();
             validaCaractere=conta.getNumeroTelefone().matches("-?\\d+");
             if(quantidadeNumerosDaString != 11 || validaCaractere==false){
+                EntradaSaida.clearScreen();
+                EntradaSaida.inserirNomeSite();
                 EntradaSaida.escreverMensagem("Número de telefone inválido, tente novamente: ");}else{validacao=true;}
         }while(validacao==false); 
 
-        conta.setSenha(EntradaSaida.inserirDadosCadastrais("Senha")); // digitar senha duas vezes para a confirmação
+        conta.setSenha(EntradaSaida.inserirDadosCadastrais("Senha")); 
         salvarDadosCadastrais(conta);
 
         return usuarioAtual;
