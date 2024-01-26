@@ -15,9 +15,11 @@ public class Doacao {
             switch(opcao){
                 case 1:
                     if(bd.listaCampanhas.isEmpty()){
-                        EntradaSaida.escreverMensagem("Não há nenhuma campanha no momento"); 
+                        EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Não há nenhuma campanha no momento"+EntradaSaida.removerCorMensagem()); 
                         EntradaSaida.pressionarEnterParaContinuar();
                     }else{
+                        EntradaSaida.clearScreen();
+                        EntradaSaida.inserirNomeSite();
                         EntradaSaida.escreverMensagem(bd.visualizarCampanhas());
                         String escolhaUsuario=EntradaSaida.responderPerguntaSimNao("\n\nDeseja realizar uma doação?\n").toUpperCase();
 
@@ -26,10 +28,12 @@ public class Doacao {
                         }else if (escolhaUsuario.equals("SIM")){
                             boolean campanhaValida = false;
                             do{
+                                EntradaSaida.clearScreen();
+                                EntradaSaida.inserirNomeSite();
                                 pD.setDestinoDoacao(EntradaSaida.inserirDadosCadastrais("Digite o nome da campanha que você deseja realizar a doação:"));
                                 campanhaValida=bd.verificarExistenciaCampanha(pD.getDestinoDoacao());
                                 if(campanhaValida==false){
-                                    EntradaSaida.escreverMensagem("Campanha inserida inválida!");
+                                    EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Campanha inserida inválida!"+EntradaSaida.removerCorMensagem());
                                 }
                             }while(campanhaValida!=true);
 
@@ -40,7 +44,7 @@ public class Doacao {
 
                             bd.salvarProdutosArrecadadosNaCampanha(pD.getDestinoDoacao(), bd.concatenarProdutosArrecadados(pD.getDestinoDoacao()));
                         }else{
-                            EntradaSaida.escreverMensagem("A opção digitada não corresponde as informadas!");
+                            EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"A opção digitada não corresponde as informadas!"+EntradaSaida.removerCorMensagem());
                             EntradaSaida.pressionarEnterParaContinuar();
                         }
                     }
@@ -50,20 +54,26 @@ public class Doacao {
                     EntradaSaida.inserirNomeSite();
                     
                     if(bd.verificarExistenciaDeUmaCampanhaPorUsuario(usuarioAtual)==true){
-                        EntradaSaida.escreverMensagem("Você já possui uma campanha!");
+                        EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Você já possui uma campanha!"+EntradaSaida.removerCorMensagem());
                     }else{
                         cd.setCategoria(EntradaSaida.escolherCategoriaDoacao());
                         
                         boolean verificaExistenciaCampanha=false;
                         do{
+                            EntradaSaida.clearScreen();
+                            EntradaSaida.inserirNomeSite();
                             cd.setNomeCampanha(EntradaSaida.inserirDadosCadastrais("Insira o nome da campanha:")); 
                             verificaExistenciaCampanha=bd.verificarExistenciaCampanha(cd.getNomeCampanha());
                             if(verificaExistenciaCampanha == true){
-                                EntradaSaida.escreverMensagem("Campanha já existente! Coloque outro nome.");
+                                EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Campanha já existente! Coloque outro nome."+EntradaSaida.removerCorMensagem());
                             }
                         }while(verificaExistenciaCampanha==true);
 
+                        EntradaSaida.clearScreen();
+                        EntradaSaida.inserirNomeSite();
                         cd.setDescricaoCampanha(EntradaSaida.inserirDadosCadastrais("Insira a descrição da campanha:"));
+                        EntradaSaida.clearScreen();
+                        EntradaSaida.inserirNomeSite();
                         cd.setLocalDistribuicao(EntradaSaida.inserirDadosCadastrais("Informe o endereço onde os produtos serão distribuídos:"));
                         cd.setProdutosArrecadados(bd.concatenarProdutosArrecadados(cd.getProdutosArrecadados()));
                         cd.setAdminCampanha(usuarioAtual);
@@ -77,9 +87,11 @@ public class Doacao {
                     
                     EntradaSaida.escreverMensagem(bd.concatenarDadosCampanha(usuarioAtual));
                     if(bd.verificarExistenciaDeUmaCampanhaPorUsuario(usuarioAtual)==true){
+                        EntradaSaida.escreverMensagem("\n");
                         int opcaoPerfilCampanha=EntradaSaida.escolherOpcao("[1] - Editar Campanha\n[2] - Excluir Campanha\n[3] - Voltar");
                         switch (opcaoPerfilCampanha) {
                             case 1:
+                            EntradaSaida.clearScreen();
                                 EntradaSaida.escreverMensagem("Digite qual atributo você deseja alterar: (Descrição / Endereço)");
                                 String retorno=EntradaSaida.retornarRespostaUsuario().toUpperCase();
 
@@ -92,7 +104,7 @@ public class Doacao {
                                     EntradaSaida.escreverMensagem("Endereço alterado com sucesso!");
                                     EntradaSaida.pressionarEnterParaContinuar();
                                 }else{
-                                    EntradaSaida.escreverMensagem("Opção informada inválida!");
+                                    EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Opção informada inválida!"+EntradaSaida.removerCorMensagem());
                                 }
                                 break;
                         
@@ -103,7 +115,7 @@ public class Doacao {
                             case 3:
                                 break;
                         }
-                    }else{EntradaSaida.escreverMensagem("Você não possui nenhuma campanha!");EntradaSaida.pressionarEnterParaContinuar();}
+                    }else{EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Você não possui nenhuma campanha!"+EntradaSaida.removerCorMensagem());EntradaSaida.pressionarEnterParaContinuar();}
                     break;
 
                 case 4:

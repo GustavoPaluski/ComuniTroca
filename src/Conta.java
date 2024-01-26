@@ -94,11 +94,11 @@ public class Conta {
         }while(Validacao.verificarExistenciaId(randomInt, listaTroca));
         pt.setId(randomInt);
         pt.setNome(EntradaSaida.inserirDadosCadastrais("Nome"));
-        pt.setCategoria(EntradaSaida.inserirDadosCadastrais("Categoria"));
-        pt.setDescricao(EntradaSaida.inserirDadosCadastrais("Descrição"));
-        pt.setEstado(EntradaSaida.inserirDadosCadastrais("Estado"));
-        pt.setGarantia(EntradaSaida.inserirDadosCadastrais("Garantia"));
-        pt.setTempoUso(EntradaSaida.inserirDadosCadastrais("Tempo de uso"));
+        pt.setCategoria(EntradaSaida.inserirDadosCadastrais("\nCategoria"));
+        pt.setDescricao(EntradaSaida.inserirDadosCadastrais("\nDescrição"));
+        pt.setEstado(EntradaSaida.inserirDadosCadastrais("\nEstado"));
+        pt.setGarantia(EntradaSaida.inserirDadosCadastrais("\nGarantia"));
+        pt.setTempoUso(EntradaSaida.inserirDadosCadastrais("\nTempo de uso"));
         this.listaTroca.add(pt); 
         EntradaSaida.escreverMensagem("Anuncio criado");
     }
@@ -107,7 +107,7 @@ public class Conta {
         String retorno = "";
         int i = 0;
         if(listaTroca.isEmpty()){
-            retorno +="Nenhuma troca no momento";
+            retorno +=EntradaSaida.inserirCorMensagem()+"Nenhuma troca no momento"+EntradaSaida.removerCorMensagem();
         }else{
             for (ProdutoTroca t : this.listaTroca) {
                 i++;
@@ -137,7 +137,7 @@ public class Conta {
         if(validacaoId == true){
             listaTroca.remove(posicao);
             EntradaSaida.escreverMensagem("Excluido com sucesso!\n");
-        }else{EntradaSaida.escreverMensagem("ID não encontrado!!!");}
+        }else{EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"ID não encontrado!!!"+EntradaSaida.removerCorMensagem());}
     }
 
     public boolean removerUsuarioAdmin(String nomeUsuario,BancoDados bd){
@@ -164,7 +164,7 @@ public class Conta {
         }
         if(usuarioExistente){
             bd.listaContas.remove(posicao);
-        }else{EntradaSaida.escreverMensagem("Nenhum usúario encontrado");}
+        }else{EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Nenhum usúario encontrado"+EntradaSaida.removerCorMensagem());}
         return usuarioExistente;
     }
 }

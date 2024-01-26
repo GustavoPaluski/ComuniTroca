@@ -7,7 +7,7 @@ public class Validacao {
 
     public static int validarEscolhaMenu(int valorMinimo, int valorMaximo, int opcao){
         while(opcao<valorMinimo && opcao>valorMaximo){
-            EntradaSaida.escreverMensagem("Opção inválida, selecione outra.");
+            EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Opção inválida, selecione outra."+EntradaSaida.removerCorMensagem());
             opcao=Integer.parseInt(System.console().readLine());
         }
         return opcao;
@@ -22,7 +22,7 @@ public class Validacao {
     public boolean verificarDadoUsuario(String dadoUsuario){ 
         boolean verificar = bd.validarNomeUsuario(dadoUsuario);
         if(verificar == false){
-            EntradaSaida.escreverMensagem("Dados inválidos!");
+            EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Dados inválidos!"+EntradaSaida.removerCorMensagem());
         }
         return verificar;
     }
@@ -30,7 +30,7 @@ public class Validacao {
     public boolean verificarSenhaUsuario(String senha, String nomeEmailCpf){ 
         boolean verificar = bd.validarSenhaUsuario(senha,nomeEmailCpf);
         if(verificar == true){
-            EntradaSaida.escreverMensagem("Senha incorreta!");
+            EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Senha incorreta!"+EntradaSaida.removerCorMensagem());
         }
         return verificar;
     }

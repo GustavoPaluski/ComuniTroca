@@ -10,6 +10,14 @@ public class EntradaSaida {
         System.out.println("==============================================");
     }
 
+    public static String inserirCorMensagem(){
+        return "\u001B[31m";
+    }
+
+    public static String removerCorMensagem(){
+        return "\u001B[0m";
+    }
+
     public static int escolherOpcao(String msg){
         System.out.println(" -Selecione uma das opções abaixo\n"+msg);
         return Integer.parseInt(System.console().readLine());
@@ -68,7 +76,7 @@ public class EntradaSaida {
                     break;
                     
                 default:
-                    System.err.println("Opção inválida, selecione outra.");
+                    System.err.println(EntradaSaida.inserirCorMensagem()+"Opção inválida, selecione outra."+EntradaSaida.removerCorMensagem());
             }
         }while(opcaoCategoria<1 && opcaoCategoria>4);
         return retorno;

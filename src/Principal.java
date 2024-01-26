@@ -43,7 +43,8 @@ public class Principal {
                                 if(verificaDadosUsuario == false){
                                     contador++;
                                     if(contador != 3){
-                                        EntradaSaida.escreverMensagem("Usuário ou senha incorretos, tente novamente!\n");
+                                        EntradaSaida.clearScreen();
+                                        EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Usuário ou senha incorretos, tente novamente!\n"+EntradaSaida.removerCorMensagem());
                                     }
                                 }
                                 
@@ -60,7 +61,7 @@ public class Principal {
                             System.exit(0);
                             break;
                         }
-                }catch (NumberFormatException exception) {EntradaSaida.escreverMensagem("Opção inválida!");}
+                }catch (NumberFormatException exception) {EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Opção inválida!"+EntradaSaida.removerCorMensagem());}
 
             }while(opcao!=1 && opcao!=2);
 
@@ -69,9 +70,11 @@ public class Principal {
                 if(verificarAdmin==false){ //MENU PRINCIPAL:
                     do{
                         try{
+                            EntradaSaida.clearScreen();
                             EntradaSaida.inserirNomeSite();
                             opcao = EntradaSaida.escolherOpcao("[1] - Doações\n[2] - Trocas\n[3] - Notícias\n[4] - Chat\n[5] - Perfil\n[6] - Deslogar-se\n[7] - Sair");
                             opcao = Validacao.validarEscolhaMenu(1, 7, opcao);
+                            EntradaSaida.clearScreen();
                             switch (opcao){
                                 case 1:
                                     Doacao.visualizarMenuDoacao(usuarioAtual,bd,pD); 
@@ -102,7 +105,7 @@ public class Principal {
                                     System.exit(0);
                                     break;
                             }
-                        }catch(NumberFormatException exception){EntradaSaida.escreverMensagem("Apenas números permitidos!");}
+                        }catch(NumberFormatException exception){EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Apenas números permitidos!"+EntradaSaida.removerCorMensagem());}
                     }while(opcao!=6);
                 }else{ //MENU PRINCIPAL ADMINISTRADOR:
                     do{
@@ -131,7 +134,7 @@ public class Principal {
                                     System.exit(0);
                                     break;
                             }
-                        }catch(NumberFormatException exception){EntradaSaida.escreverMensagem("Apenas números permitidos!");}
+                        }catch(NumberFormatException exception){EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Apenas números permitidos!"+EntradaSaida.removerCorMensagem());}
                     }while(opcao!=3);
                 }
             }

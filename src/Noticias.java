@@ -38,13 +38,13 @@ public class Noticias {
         do{
             noticias.tituloNoticia=EntradaSaida.inserirDadosCadastrais("Digite o título da notícia: ");
             if(noticias.tituloNoticia.length()<3 || noticias.tituloNoticia.length()>64){
-                EntradaSaida.escreverMensagem("Título inválido, mínimo 3 carcateres e máximo 64!");
+                EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Título inválido, mínimo 3 carcateres e máximo 64!"+EntradaSaida.removerCorMensagem());
             }
         }while(noticias.tituloNoticia.length()<3 || noticias.tituloNoticia.length()>64);
         do{
             noticias.noticia=EntradaSaida.inserirDadosCadastrais("Escreva a notícia abaixo: ");
             if(noticias.noticia.length()<10 || noticias.noticia.length()>360){
-                EntradaSaida.escreverMensagem("Título inválido, mínimo 10 carcateres e máximo 360!");
+                EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Título inválido, mínimo 10 carcateres e máximo 360!"+EntradaSaida.removerCorMensagem());
 
             }
         }while(noticias.noticia.length()<10 || noticias.noticia.length()>360);
@@ -56,7 +56,7 @@ public class Noticias {
     public String retornarTodasNoticias(){
         String retorno="NOTÍCIAS:\n\n\n";
         if(listaDeNoticias.isEmpty()){
-            retorno+="Nenhuma notícia foi cadastrada até o momento!";
+            retorno+=EntradaSaida.inserirCorMensagem()+"Nenhuma notícia foi cadastrada até o momento!"+EntradaSaida.removerCorMensagem();
         }else{
             for (Noticias noticias : listaDeNoticias) {
                 retorno+="Título: "+noticias.tituloNoticia+"\n"+noticias.noticia+"\nData de publicação: "+noticias.dataPublicacao+"\n\n";
@@ -83,20 +83,20 @@ public class Noticias {
                 do{
                     noticias.tituloNoticia=EntradaSaida.inserirDadosCadastrais("Digite o título da notícia: ");
                     if(noticias.tituloNoticia.length()<3 || noticias.tituloNoticia.length()>64){
-                        EntradaSaida.escreverMensagem("Título inválido, mínimo 3 carcateres e máximo 64!");
+                        EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Título inválido, mínimo 3 carcateres e máximo 64!"+EntradaSaida.removerCorMensagem());
                     }
                 }while(noticias.tituloNoticia.length()<3 || noticias.tituloNoticia.length()>64);
                 do{
                     noticias.noticia=EntradaSaida.inserirDadosCadastrais("Escreva a notícia abaixo: ");
                     if(noticias.noticia.length()<10 || noticias.noticia.length()>360){
-                        EntradaSaida.escreverMensagem("Texto inválido, mínimo 10 carcateres e máximo 360!");
+                        EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Texto inválido, mínimo 10 carcateres e máximo 360!"+EntradaSaida.removerCorMensagem());
                     }
                 }while(noticias.noticia.length()<10 || noticias.noticia.length()>360);
                 noticias.dataPublicacao=dataAtual;
             }
         }
         if(achaNoticia==false){
-            EntradaSaida.escreverMensagem("O título informado não foi encontrado!");
+            EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"O título informado não foi encontrado!"+EntradaSaida.removerCorMensagem());
             EntradaSaida.pressionarEnterParaContinuar();
         }
     }
@@ -112,7 +112,7 @@ public class Noticias {
             }
         }
         if(achaNoticia==false){
-            EntradaSaida.escreverMensagem("O título informado não foi encontrado!");
+            EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"O título informado não foi encontrado!"+EntradaSaida.removerCorMensagem());
             EntradaSaida.pressionarEnterParaContinuar();
         }else{
             this.listaDeNoticias.remove(posicaoObjeto);
@@ -148,11 +148,11 @@ public class Noticias {
                         break;
                 
                     default:
-                        EntradaSaida.escreverMensagem("Opção inválida!");
+                        EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Opção inválida!"+EntradaSaida.removerCorMensagem());
                 }
             }else{
-                EntradaSaida.escreverMensagem("Opção inválida!");
+                EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Opção inválida!"+EntradaSaida.removerCorMensagem());
             }   
-        }catch(NumberFormatException e){EntradaSaida.escreverMensagem("Opção inválida!");}
+        }catch(NumberFormatException e){EntradaSaida.escreverMensagem(EntradaSaida.inserirCorMensagem()+"Opção inválida!"+EntradaSaida.removerCorMensagem());}
     }
 }
