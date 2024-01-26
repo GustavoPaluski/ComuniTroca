@@ -14,7 +14,7 @@ Criadores: Gustavo Paluski e Ruan Carlos
 
 🏠 Comunitroca
 
- O Comunitroca é um aplicativo focado em trocas e doações, objetivando buscar produtos, objetos e roupas que não estão sendo utilizados por outras pessoas, evitando gastos e sendo acessível para todas as pessoas.
+ O Comunitroca é um aplicativo focado em trocas e doações, objetivando ofertar produtos, objetos e roupas que não estão sendo utilizados por outras pessoas, assim, oferecendo a determinados produtos sem o envolvimento de dinheiro, consquentemente, evitando desperdícios sejam monetários quanto materiais.
 
  -------------------------------------------------------------------------------------
 
@@ -22,7 +22,7 @@ Criadores: Gustavo Paluski e Ruan Carlos
 
 ✍ FUNCIONAMENTO
 
- O aplicativo contém um menu de cadastro e login, validando quem pode ou não pode acessar ele, de forma segura e rápida. Logo após o login ser feito o usuário poderá escolher se ele quer ir para as abas de doações, trocas, notícias, chat, perfil, deslogar ou sair. A seguir será apresentado o passo a passo de cada funcionalidade do Comunitroca.
+ O aplicativo contém um menu de cadastro e login, validando quem pode ou não pode acessar ele, de forma segura e rápida. Logo após o login/cadastro ser feito, o usuário poderá escolher se ele quer ir para as abas de doações, trocas, notícias, chat, perfil, deslogar ou sair. A seguir será apresentado o passo a passo de cada funcionalidade do Comunitroca.
 
 -------------------------------------------------------------------------------------
 
